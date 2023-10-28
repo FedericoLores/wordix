@@ -82,7 +82,11 @@ do {
  * @return string
 */
 function ingresarPalabra ($inPalabra){
+<<<<<<< HEAD
     string $rPalabra;
+=======
+    //string $rPalabra
+>>>>>>> 8907cfae918bc33ee482d6001037ce8e543f4fff
     $rPalabra = $inPalabra;
     return $rPalabra;
 
