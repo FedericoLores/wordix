@@ -77,8 +77,14 @@ do {
 } while ($opcion != X);
 */
 
+/** pide a usuario una palabra de 5 letras y retorna la palabra 
+ * @param string $inpalabra
+ * @return string
+*/
+function ingresarPalabra ($inPalabra){
+    return $rPalabra;
 
-
+}
 
 
 
