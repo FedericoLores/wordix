@@ -296,6 +296,8 @@ do {
 
 
 
-function agregarPalabra($coleccionPalabras, $palabraAgregadaa)
-{
+function agregarPalabra ($coleccionPalabras, $palabraAgregada){
+    $coleccionActualizada = $coleccionPalabras;
+    $coleccionActualizada[count($coleccionActualizada)] = $palabraAgregada;
+    return $coleccionActualizada;
 }
