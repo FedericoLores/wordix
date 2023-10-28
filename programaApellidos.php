@@ -88,10 +88,22 @@ function ingresarPalabra ($inPalabra){
 
 }
 
-    
+/** pide al usuario un numero, comprueba si es valido y lo retorna, sino pude uno nuevo
+ * @param int $esNumeroVal
+ * @return int
+ * 
+*/
+function numeroValido ($esNumeroVal){
+    //int $rangoVal
+    $rangoVal = count(cargarColeccionPalabras());
+    while ($esNumeroVal < 0 || $esNumeroVal > $rangoVal){
+        echo "Ingrese un numero valido: ";
+        $esNumeroVal = trim(fgets(STDIN));
+    }
+    $numeroSiVal = $esNumeroVal;
+    return $esNumeroVal;
 
-
-
+}
 
 
 
