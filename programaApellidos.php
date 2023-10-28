@@ -82,6 +82,8 @@ do {
  * @return string
 */
 function ingresarPalabra ($inPalabra){
+    string $rPalabra;
+    $rPalabra = $inPalabra;
     return $rPalabra;
 
 }
