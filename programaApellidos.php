@@ -247,7 +247,6 @@ do {
 
 
 
-//aca arriba trabajo yo (santiago barra)
 
 
 
@@ -297,11 +296,6 @@ do {
 
 
 
-function agregarPalabra ($coleccionPalabras, $palabraAgregadaa){
-    
-
-
-
-
-
+function agregarPalabra($coleccionPalabras, $palabraAgregadaa)
+{
 }
