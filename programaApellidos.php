@@ -91,10 +91,10 @@ function ingresarPalabra (){
  * @return int
  * 
 */
-function numeroValido ($rangoVal){
+function numeroValido ($rangoValMin, $rangoValMax){
     echo "Ingrese un numero";
     $NumeroVal = trim(fgets(STDIN));
-    while ($NumeroVal < $rangoVal || $NumeroVal > $rangoVal){
+    while ($NumeroVal < $rangoValMin || $NumeroVal > $rangoValMax){
         echo "Ingrese un numero valido: ";
         $NumeroVal = trim(fgets(STDIN));
     }
