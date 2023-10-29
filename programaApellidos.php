@@ -98,7 +98,23 @@ function solicitarJugador (){
     return $nombreSol;
 }
 
-
+/** Inicializa una estructura de datos con ejemplos de partidas y retorna el arreglo 
+* @return array
+*/
+function cargarPartidas(){
+//array $cargPartidas
+$cargPartidas[0]=["palabraWordix" => "QUESO" , "jugador" => "majo" , "intentos" => 0 , "puntaje" => 0];
+$cargPartidas[1]=["palabraWordix"=>"CASAS","jugador"=>"rudolf","intentos"=>3,"puntaje"=>14];
+$cargPartidas[2]=["palabraWordix"=>"QUESO","jugador"=>"pink2000","intentos"=>6,"puntaje"=>10];
+$cargPartidas[3]=["palabraWordix"=>"FUEGO","jugador"=>"agus","intentos"=>2,"puntaje"=>8];
+$cargPartidas[4]=["palabraWordix"=>"RASGO","jugador"=>"julian","intentos"=>5,"puntaje"=>12];
+$cargPartidas[5]=["palabraWordix"=>"NAVES","jugador"=>"javier","intentos"=>4,"puntaje"=>20];
+$cargPartidas[6]=["palabraWordix"=>"PISOS","jugador"=>"agus","intentos"=>6,"puntaje"=>7];
+$cargPartidas[7]=["palabraWordix"=>"YUYOS","jugador"=>"tomas","intentos"=>2,"puntaje"=>12];
+$cargPartidas[8]=["palabraWordix"=>"PISOS","jugador"=>"damian","intentos"=>1,"puntaje"=>22];
+$cargPartidas[9]=["palabraWordix"=>"TINTO","jugador"=>"damian","intentos"=>6,"puntaje"=>13];
+return $cargPartidas;
+}
 
 
 
