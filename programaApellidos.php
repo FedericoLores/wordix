@@ -78,30 +78,29 @@ do {
 */
 
 /** pide a usuario una palabra de 5 letras y retorna la palabra 
- * @param string $inpalabra
  * @return string
 */
-function ingresarPalabra ($inPalabra){
-    //string $rPalabra
-    $rPalabra = $inPalabra;
+function ingresarPalabra (){
+    echo "Ingrese una palabra de 5 letras";
+    $rPalabra = trim(fgets(STDIN));
     return $rPalabra;
-
 }
 
 /** pide al usuario un numero, comprueba si es valido y lo retorna, sino pude uno nuevo
- * @param int $esNumeroVal
+ * @param int $NumeroVal
  * @return int
  * 
 */
-function numeroValido ($esNumeroVal){
+function numeroValido (){
     //int $rangoVal
+    echo "Ingrese un numero";
+    $NumeroVal = trim(fgets(STDIN));
     $rangoVal = count(cargarColeccionPalabras());
-    while ($esNumeroVal < 0 || $esNumeroVal > $rangoVal){
+    while ($NumeroVal < 0 || $NumeroVal > $rangoVal){
         echo "Ingrese un numero valido: ";
-        $esNumeroVal = trim(fgets(STDIN));
+        $NumeroVal = trim(fgets(STDIN));
     }
-    $numeroSiVal = $esNumeroVal;
-    return $esNumeroVal;
+    return $NumeroVal;
 
 }
 
