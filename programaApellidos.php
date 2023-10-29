@@ -94,6 +94,10 @@ function solicitarJugador (){
     //string $nombreSol
     echo "Ingrese el nombre del jugador";
     $nombreSol = trim(fgets(STDIN));
+    while (!ctype_alpha($nombreSol[0])){
+        echo "Ingrese un nombre valido";
+        $nombreSol = trim(fgets(STDIN));
+    }
     $nombreSol = strtolower($nombreSol);
     return $nombreSol;
 }
