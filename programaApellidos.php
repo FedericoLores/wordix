@@ -81,8 +81,8 @@ do {
  * @return string
 */
 function ingresarPalabra (){
-    echo "Ingrese una palabra de 5 letras";
-    $rPalabra = trim(fgets(STDIN));
+    $rPalabra = leerPalabra5Letras();
+    $rPalabra = strtolower($rPalabra);
     return $rPalabra;
 }
 
