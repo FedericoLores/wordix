@@ -330,6 +330,7 @@ function seleccionarOpcion(){
     echo "seleccione una opción por favor \n";
     echo " 1) Jugar eligiendo palabra \n 2) Jugar con palabra aleatoria \n 3) Ver partida \n 4) Ver primer partida ganadora \n 5) Ver estadísticas de un jugador \n 6) Ver lista de partidas \n 7) Agregar una palabra \n 8) Salir";
     $opcionInput = trim(fgets(STDIN));
+    /* llamar modulo 5 nroValido en vez de operar*/
     while ($opcionInput < 0 || $opcionInput > 9){
         echo "Ingrese una opción disponible por favor";
         $opcionInput = trim(fgets(STDIN));
