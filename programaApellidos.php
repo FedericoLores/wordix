@@ -121,22 +121,26 @@ return $cargPartidas;
 }
 
 /** Dada colección de partidas y nombre del jugador, retorna un arreglo con el resumen del jugador 
- * @param array $arregloPartidas
+ * @param array $partidas
  * @param string $nombreJugador
  * @return array
 */
-function resumenJugador () {
-    //array $partidaResumen
+function resumenJugador ($partidas, $nombreJugador) {
     //int $arrayCuenta
-    $arrayCuenta = count($arregloDePartidas); // reemplazar $arregloDePartidas cuando se haga el arreglo de partidas con el nombre correcto
+    //boolean $encontrado
+    $arrayCuenta = count($partidas);
     $k = 0; /*variable para ir armando el arreglo resumen */
-    for ($j = 0; $j < $arrayCuenta; $j++){
-        if  /* comprobar si en el $arregloDePartidas[$j] en la clave "jugador" es igual al string $nombrejugador*/ {
-            $partidaresumen[$k]=$arregloDePartidas[$j] /*copiara el array pero hacae falta sumar las victorias y los puntajes y en que intento lo resuelve */
-            $k = $k +1;
+    $encontrado = false;
+    while ($k < $arrayCuenta && !$encontrado) {
+        if ($partidas[$k]["jugador"]["nombre"] == $nombreJugador){
+            $encontrado = true;
+            //se resta $k para mantener el valor resultado para mostrar, si encuentran una manera mas eficiente por favor remplazen
+            $k -= 1;
         }
-}
-return $partidaResumen
+        $k += 1;
+    }
+    //se asume que nunca se va a ejecutar con valores invalidos
+    return $partidas[$k]["jugador"];
 }
 
 
