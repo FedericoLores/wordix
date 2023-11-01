@@ -74,9 +74,6 @@ do {
 
             break;
         case 3: 
-            //echo pedir numero de partida
-            //ver si el numero de partida es valido
-            //enviar el numero de partida al modulo
             $numMax = count($partidas);
             $numMin = 0;
             echo "Ingrese un numero de partida";
@@ -86,8 +83,15 @@ do {
         
         case 4:
 
+            $nombre = solicitarJugador();
+            $partidaB = primerGanada($partidas, $nombre);
+            
+            if (!$partidaB = -1){
+                numeroPartida($partidas, $partidaB);
+            }else {
+                echo "Este jugador no ha ganado ninguna partida";
+            }
             break;
-
         case 5:
 
             break;
@@ -189,18 +193,18 @@ function numeroPartida ($arregloPar, $numeroP){
 }
 
 /** Dada una colección de partidas y el nombre de un jugador, retorne la primer partida ganada 
- * @param array $partidasG
+ * @param array $partidasT
  * @param string $nombreJugadorGana
  * @return int
  */
-function primerGanada ($partidasG, $nombreJugadorGana) {
+function primerGanada ($partidasT, $nombreJugadorGana) {
     // int $m
     // boolean $encontradoGana
-    $m = count($partidasG); // limite del array
+    $m = count($partidasT); // limite del array
     $l = 0; //contador
     $encontradoGana = false;
     while ($l < $m && !$encontradoGana) {
-        if (($partidasG[$l]["jugador"] == $nombreJugadorGana) && $partidasG[$l]["puntaje"] > 0){
+        if (($partidasT[$l]["jugador"] == $nombreJugadorGana) && $partidasT[$l]["puntaje"] > 0){
             $encontradoGana = true;
             $l -= 1;
         }
