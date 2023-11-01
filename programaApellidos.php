@@ -40,15 +40,15 @@ function cargarColeccionPalabras()
 /**************************************/
 
 //Declaración de variables:
-$partidas = cargarPartidas();
+//array $partidas
 
 
 //Inicialización de variables:
-
+$partidas = cargarPartidas();
 
 //Proceso:
 
-$partida = jugarWordix("MELON", strtolower("MaJo"));
+// $partida = jugarWordix("MELON", strtolower("MaJo"));
 //print_r($partida);
 //imprimirResultado($partida);
 
@@ -56,9 +56,7 @@ $partida = jugarWordix("MELON", strtolower("MaJo"));
 
 /*
 do {
-    $opcion = ...;
-
-    
+    $opcion = seleccionarOpcion();
     switch ($opcion) {
         case 1: 
             //completar qué secuencia de pasos ejecutar si el usuario elige la opción 1
@@ -73,17 +71,31 @@ do {
 
             break;
         
-            //...
+        case 4:
+
+            break;
+
+        case 5:
+
+            break;
+
+        case 6:
+
+            break;
+
+        case 7:
+            $palabraIN = ingresarPalabra();
+            $partidas = agregarPalabra($partidas, $palabraIN);
+            break;
     }
-} while ($opcion != X);
+} while ($opcion != 8);
 */
 
 /** pide a usuario una palabra de 5 letras y retorna la palabra 
  * @return string
 */
 function ingresarPalabra (){
-    $rPalabra = leerPalabra5Letras();
-    $rPalabra = strtolower($rPalabra);
+    $rPalabra = strtolower(leerPalabra5Letras());
     return $rPalabra;
 }
 
@@ -163,7 +175,7 @@ function primerGanada ($partidasG, $nombreJugadorGana) {
     // int $m
     // boolean $encontradoGana
     $m = count($partidasG); // limite del array
-    $l = 0; 
+    $l = 0; //contador
     $encontradoGana = false;
     while ($l < $m && !$encontradoGana) {
         if (($partidasG[$l]["jugador"] == $nombreJugadorGana) && $partidasG[$l]["puntaje"] > 0){
