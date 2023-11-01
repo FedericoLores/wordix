@@ -142,6 +142,15 @@ function resumenJugador ($partidas, $nombreJugador) {
     return $partidas[$k]["jugador"];
 }
 
+/** Dado un numero de partida muestra en pantalla los datos de esa partida
+ * @param int $numeroP
+ * @return array
+ */
+function numeroPartida ($numeroP){
+    //array $partidaNum
+    $partidaNum = $partidas[$numeroP];
+    echo $partidaNum; //ver si se usa print_r
+}
 
 /** Dada una colección de partidas y el nombre de un jugador, retorne la primer partida ganada 
  * @param array $partidasG
