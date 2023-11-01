@@ -59,7 +59,13 @@ do {
     $opcion = seleccionarOpcion();
     switch ($opcion) {
         case 1: 
-            //completar qué secuencia de pasos ejecutar si el usuario elige la opción 1
+             $nombre = solicitarJugador();
+            echo "num palabra";
+            $numPal = trim(fgets(STDIN));
+            while (funcionRevisarTodo($jugador, $palabra)){
+                echo "otra palabra";
+                $numPal = trim(fgets(STDIN));
+            }
 
             break;
         case 2: 
