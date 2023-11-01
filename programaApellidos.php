@@ -66,7 +66,7 @@ do {
                 echo "otra palabra";
                 $numPal = trim(fgets(STDIN));
             }
-
+            $partidas[count($partidas)] = ["palabraWordix" => $palabraIntento, "jugador" => $nombre, "intentos" => $nroIntento, "puntaje" => $puntaje]
             break;
         case 2: 
             //completar qué secuencia de pasos ejecutar si el usuario elige la opción 2
@@ -149,7 +149,7 @@ return $ejemPartidas;
  * @param string $nombreJugador
  * @return array
 */
-// che que onda esto esta pidiendo una coleccion al pedo????
+// esta funcion esta pidiendo un arreglo sin usarlo??
 function resumenJugador ($partidas, $nombreJugador) {
     //int $arrayCuenta
     //boolean $encontrado
