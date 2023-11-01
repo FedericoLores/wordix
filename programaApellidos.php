@@ -68,6 +68,7 @@ do {
             }
             $partidas[count($partidas)] = ["palabraWordix" => $palabraIntento, "jugador" => $nombre, "intentos" => $nroIntento, "puntaje" => $puntaje]
             break;
+
         case 2: 
             //completar qué secuencia de pasos ejecutar si el usuario elige la opción 2
 
@@ -175,7 +176,16 @@ function resumenJugador ($partidas, $nombreJugador) {
  */
 // arreglo de partidas no sabemos si esta permitido como parametro de entrada
 function numeroPartida ($arregloPar, $numeroP){
-    echo "********************************** \nPartida WORDIX" ,$numeroP ,": palabra " ,$arregloPar[$numeroP]["palabraWordix"] ,"\nJugador: " ,$arregloPar[$numeroP]["jugador"] ,"\nPuntaje: " ,$arregloPar[$numeroP]["puntaje"] ," puntos \nIntento: Adivino la palabra en " ,$arregloPar[$numeroP]["intentos"] ," intentos \n**********************************";
+    echo "********************************** \nPartida WORDIX" ,$numeroP ,
+    ": palabra " ,
+    $arregloPar[$numeroP]["palabraWordix"] ,
+    "\nJugador: " ,
+    $arregloPar[$numeroP]["jugador"] ,
+    "\nPuntaje: " ,
+    $arregloPar[$numeroP]["puntaje"] ,
+    " puntos \nIntento: Adivino la palabra en " ,
+    $arregloPar[$numeroP]["intentos"] ,
+    " intentos \n**********************************";
 }
 
 /** Dada una colección de partidas y el nombre de un jugador, retorne la primer partida ganada 
