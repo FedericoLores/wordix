@@ -40,14 +40,15 @@ function cargarColeccionPalabras()
 /**************************************/
 
 //Declaración de variables:
+//array $partidas
 
 
 //Inicialización de variables:
-
+$partidas = cargarPartidas();
 
 //Proceso:
 
-$partida = jugarWordix("MELON", strtolower("MaJo"));
+// $partida = jugarWordix("MELON", strtolower("MaJo"));
 //print_r($partida);
 //imprimirResultado($partida);
 
@@ -55,34 +56,58 @@ $partida = jugarWordix("MELON", strtolower("MaJo"));
 
 /*
 do {
-    $opcion = ...;
-
-    
+    $opcion = seleccionarOpcion();
     switch ($opcion) {
         case 1: 
-            //completar qué secuencia de pasos ejecutar si el usuario elige la opción 1
-
+             $nombre = solicitarJugador();
+            echo "num palabra";
+            $numPal = trim(fgets(STDIN));
+            while (funcionRevisarTodo($jugador, $palabra)){
+                echo "otra palabra";
+                $numPal = trim(fgets(STDIN));
+            }
+            $partidas[count($partidas)] = ["palabraWordix" => $palabraIntento, "jugador" => $nombre, "intentos" => $nroIntento, "puntaje" => $puntaje]
             break;
         case 2: 
             //completar qué secuencia de pasos ejecutar si el usuario elige la opción 2
 
             break;
         case 3: 
-            //completar qué secuencia de pasos ejecutar si el usuario elige la opción 3
-
+            //echo pedir numero de partida
+            //ver si el numero de partida es valido
+            //enviar el numero de partida al modulo
+            $numMax = count($partidas);
+            $numMin = 0;
+            echo "Ingrese un numero de partida";
+            $numPar = solicitarNumeroEntre($numMin, $numMax) -1;
+            numeroPartida($partidas, $numPar);
             break;
         
-            //...
+        case 4:
+
+            break;
+
+        case 5:
+
+            break;
+
+        case 6:
+
+            break;
+
+        case 7:
+            $palabraIN = ingresarPalabra();
+            $partidas = agregarPalabra($partidas, $palabraIN);
+            break;
     }
-} while ($opcion != X);
+} while ($opcion != 8);
 */
 
 /** pide a usuario una palabra de 5 letras y retorna la palabra 
  * @return string
 */
 function ingresarPalabra (){
-    $rPalabra = leerPalabra5Letras();
-    $rPalabra = strtolower($rPalabra);
+    $rPalabra = strtolower(leerPalabra5Letras());
     return $rPalabra;
 }
 
@@ -124,6 +149,7 @@ return $ejemPartidas;
  * @param string $nombreJugador
  * @return array
 */
+// esta funcion esta pidiendo un arreglo sin usarlo??
 function resumenJugador ($partidas, $nombreJugador) {
     //int $arrayCuenta
     //boolean $encontrado
@@ -144,13 +170,12 @@ function resumenJugador ($partidas, $nombreJugador) {
 
 /** Dado un numero de partida muestra en pantalla los datos de esa partida
  * @param int $numeroP
+ * @param array $arregloPar
  * @return array
  */
-function numeroPartida ($numeroP){
-    //array $partidaNum
-    //arreglo partidas no existe todavia
-    $partidaNum = $partidas[$numeroP];
-    echo $partidaNum; //ver si se usa print_r
+// arreglo de partidas no sabemos si esta permitido como parametro de entrada
+function numeroPartida ($arregloPar, $numeroP){
+    echo "********************************** \nPartida WORDIX" ,$numeroP ,": palabra " ,$arregloPar[$numeroP]["palabraWordix"] ,"\nJugador: " ,$arregloPar[$numeroP]["jugador"] ,"\nPuntaje: " ,$arregloPar[$numeroP]["puntaje"] ," puntos \nIntento: Adivino la palabra en " ,$arregloPar[$numeroP]["intentos"] ," intentos \n**********************************";
 }
 
 /** Dada una colección de partidas y el nombre de un jugador, retorne la primer partida ganada 
@@ -162,10 +187,10 @@ function primerGanada ($partidasG, $nombreJugadorGana) {
     // int $m
     // boolean $encontradoGana
     $m = count($partidasG); // limite del array
-    $l = 0; 
+    $l = 0; //contador
     $encontradoGana = false;
     while ($l < $m && !$encontradoGana) {
-        if (($partidasG[$l]["jugador"]["nombre"] == $nombreJugadorGana) && $partidasG[$l]["puntaje"] > 0){
+        if (($partidasG[$l]["jugador"] == $nombreJugadorGana) && $partidasG[$l]["puntaje"] > 0){
             $encontradoGana = true;
             $l -= 1;
         }
