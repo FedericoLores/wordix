@@ -148,6 +148,7 @@ function resumenJugador ($partidas, $nombreJugador) {
  */
 function numeroPartida ($numeroP){
     //array $partidaNum
+    //arreglo partidas no existe todavia
     $partidaNum = $partidas[$numeroP];
     echo $partidaNum; //ver si se usa print_r
 }
