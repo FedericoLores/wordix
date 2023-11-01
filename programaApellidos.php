@@ -40,6 +40,7 @@ function cargarColeccionPalabras()
 /**************************************/
 
 //Declaración de variables:
+$partidas = cargarPartidas();
 
 
 //Inicialización de variables:
@@ -124,6 +125,7 @@ return $ejemPartidas;
  * @param string $nombreJugador
  * @return array
 */
+// che que onda esto esta pidiendo una coleccion al pedo????
 function resumenJugador ($partidas, $nombreJugador) {
     //int $arrayCuenta
     //boolean $encontrado
@@ -144,13 +146,12 @@ function resumenJugador ($partidas, $nombreJugador) {
 
 /** Dado un numero de partida muestra en pantalla los datos de esa partida
  * @param int $numeroP
+ * @param array $arregloPar
  * @return array
  */
-function numeroPartida ($numeroP){
-    //array $partidaNum
-    //arreglo partidas no existe todavia
-    $partidaNum = $partidas[$numeroP];
-    echo $partidaNum; //ver si se usa print_r
+// arreglo de partidas no sabemos si esta permitido como parametro de entrada
+function numeroPartida ($arregloPar, $numeroP){
+    print_r ($arregloPar[$numeroP]); //ver si se usa print_r
 }
 
 /** Dada una colección de partidas y el nombre de un jugador, retorne la primer partida ganada 
@@ -165,7 +166,7 @@ function primerGanada ($partidasG, $nombreJugadorGana) {
     $l = 0; 
     $encontradoGana = false;
     while ($l < $m && !$encontradoGana) {
-        if (($partidasG[$l]["jugador"]["nombre"] == $nombreJugadorGana) && $partidasG[$l]["puntaje"] > 0){
+        if (($partidasG[$l]["jugador"] == $nombreJugadorGana) && $partidasG[$l]["puntaje"] > 0){
             $encontradoGana = true;
             $l -= 1;
         }
