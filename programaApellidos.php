@@ -67,8 +67,14 @@ do {
 
             break;
         case 3: 
-            //completar qué secuencia de pasos ejecutar si el usuario elige la opción 3
-
+            //echo pedir numero de partida
+            //ver si el numero de partida es valido
+            //enviar el numero de partida al modulo
+            $numMax = count($partidas);
+            $numMin = 0;
+            echo "Ingrese un numero de partida";
+            $numPar = solicitarNumeroEntre($numMin, $numMax) -1;
+            numeroPartida($partidas, $numPar);
             break;
         
         case 4:
