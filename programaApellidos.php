@@ -151,7 +151,7 @@ function resumenJugador ($partidas, $nombreJugador) {
  */
 // arreglo de partidas no sabemos si esta permitido como parametro de entrada
 function numeroPartida ($arregloPar, $numeroP){
-    print_r ($arregloPar[$numeroP]); //ver si se usa print_r
+    echo "********************************** \nPartida WORDIX" ,$numeroP ,": palabra " ,$partidas[$numeroP]["palabraWordix"] ,"\nJugador: " ,$partidas[$numeroP]["jugador"] ,"\nPuntaje: " ,$partidas[$numeroP]["puntaje"] ,"puntos \nIntento: Adivino la palabra en " ,$partidas[$numeroP]["intentos"] ," intentos \n**********************************"
 }
 
 /** Dada una colección de partidas y el nombre de un jugador, retorne la primer partida ganada 
