@@ -68,14 +68,12 @@ do {
             }
             $partidas[count($partidas)] = ["palabraWordix" => $palabraIntento, "jugador" => $nombre, "intentos" => $nroIntento, "puntaje" => $puntaje]
             break;
+
         case 2: 
             //completar qué secuencia de pasos ejecutar si el usuario elige la opción 2
 
             break;
         case 3: 
-            //echo pedir numero de partida
-            //ver si el numero de partida es valido
-            //enviar el numero de partida al modulo
             $numMax = count($partidas);
             $numMin = 0;
             echo "Ingrese un numero de partida";
@@ -85,8 +83,15 @@ do {
         
         case 4:
 
+            $nombre = solicitarJugador();
+            $partidaB = primerGanada($partidas, $nombre);
+            
+            if (!$partidaB = -1){
+                numeroPartida($partidas, $partidaB);
+            }else {
+                echo "Este jugador no ha ganado ninguna partida";
+            }
             break;
-
         case 5:
 
             break;
@@ -175,22 +180,31 @@ function resumenJugador ($partidas, $nombreJugador) {
  */
 // arreglo de partidas no sabemos si esta permitido como parametro de entrada
 function numeroPartida ($arregloPar, $numeroP){
-    echo "********************************** \nPartida WORDIX" ,$numeroP ,": palabra " ,$arregloPar[$numeroP]["palabraWordix"] ,"\nJugador: " ,$arregloPar[$numeroP]["jugador"] ,"\nPuntaje: " ,$arregloPar[$numeroP]["puntaje"] ," puntos \nIntento: Adivino la palabra en " ,$arregloPar[$numeroP]["intentos"] ," intentos \n**********************************";
+    echo "********************************** \nPartida WORDIX" ,$numeroP ,
+    ": palabra " ,
+    $arregloPar[$numeroP]["palabraWordix"] ,
+    "\nJugador: " ,
+    $arregloPar[$numeroP]["jugador"] ,
+    "\nPuntaje: " ,
+    $arregloPar[$numeroP]["puntaje"] ,
+    " puntos \nIntento: Adivino la palabra en " ,
+    $arregloPar[$numeroP]["intentos"] ,
+    " intentos \n**********************************";
 }
 
 /** Dada una colección de partidas y el nombre de un jugador, retorne la primer partida ganada 
- * @param array $partidasG
+ * @param array $partidasT
  * @param string $nombreJugadorGana
  * @return int
  */
-function primerGanada ($partidasG, $nombreJugadorGana) {
+function primerGanada ($partidasT, $nombreJugadorGana) {
     // int $m
     // boolean $encontradoGana
-    $m = count($partidasG); // limite del array
+    $m = count($partidasT); // limite del array
     $l = 0; //contador
     $encontradoGana = false;
     while ($l < $m && !$encontradoGana) {
-        if (($partidasG[$l]["jugador"] == $nombreJugadorGana) && $partidasG[$l]["puntaje"] > 0){
+        if (($partidasT[$l]["jugador"] == $nombreJugadorGana) && $partidasT[$l]["puntaje"] > 0){
             $encontradoGana = true;
             $l -= 1;
         }
@@ -417,4 +431,57 @@ function seleccionarOpcion(){
     /* llama modulo numeroValido */
     $opcionInput = solicitarNumeroEntre(1, 8);
     return $opcionInput;
+}
+
+//compara para uasort
+//@param string $a, $b
+//@return int
+function comparacion($a, $b){
+    //boolean $dif
+    //int $i, $limit
+    $dif = false;
+    $i = 0;
+    if ($a["jugador"] == $b["jugador"]){
+        // no comparamos igualdad porque un jugador no puede tener 2 veces la misma palabra
+        do{
+            if ((ord($a["palabraWordix"][$i]) < ord($b["palabraWordix"][$i]))){
+                $dif = true;
+                $orden = -1;
+            } elseif ((ord($a["palabraWordix"][$i]) > ord($b["palabraWordix"][$i]))){
+                $dif = true;
+                $orden = 1;
+            }
+            $i += 1;       
+        } while ($i<5 && !$dif);
+    } else{
+        //define limite de while
+        //devuelve orden correcto si son nombres iguales de diferente largo
+        if (count($a) < count($b) ){
+            $limit = count($a);
+            $orden = -1;
+        } else {
+            $limit = count($b);
+            $orden = 1;
+        }
+        while ($i<$limit && !$dif) {
+            if ((ord($a["jugador"][$i]) < ord($b["jugador"][$i]))){
+                $dif = true;
+                $orden = -1;
+            } elseif ((ord($a["jugador"][$i]) > ord($b["jugador"][$i]))){
+                $dif = true;
+                $orden = 1;
+            }
+            $i += 1;
+        } 
+    }
+    return$orden;
+}
+
+// recibe arreglo partidas y las muestra en orden alfabetico por jugador y palabra sin modificar arreglo original
+//@param array $arreglo
+function mostrarPartidasAbc($arreglo){
+    //array $partidasAbc
+    $partidasAbc = $arreglo;
+    uasort($partidasAbc, 'comparacion');
+    print_r($partidasAbc);
 }
