@@ -433,3 +433,56 @@ function seleccionarOpcion(){
     $opcionInput = solicitarNumeroEntre(1, 8);
     return $opcionInput;
 }
+
+//compara para uasort
+//@param string $a, $b
+//@return int
+function comparacion($a, $b){
+    //boolean $dif
+    //int $i, $limit
+    $dif = false;
+    $i = 0;
+    if ($a["jugador"] == $b["jugador"]){
+        // no comparamos igualdad porque un jugador no puede tener 2 veces la misma palabra
+        do{
+            if ((ord($a["palabraWordix"][$i]) < ord($b["palabraWordix"][$i]))){
+                $dif = true;
+                $orden = -1;
+            } elseif ((ord($a["palabraWordix"][$i]) > ord($b["palabraWordix"][$i]))){
+                $dif = true;
+                $orden = 1;
+            }
+            $i += 1;       
+        } while ($i<5 && !$dif);
+    } else{
+        //define limite de while
+        //devuelve orden correcto si son nombres iguales de diferente largo
+        if (count($a) < count($b) ){
+            $limit = count($a);
+            $orden = -1;
+        } else {
+            $limit = count($b);
+            $orden = 1;
+        }
+        while ($i<$limit && !$dif) {
+            if ((ord($a["jugador"][$i]) < ord($b["jugador"][$i]))){
+                $dif = true;
+                $orden = -1;
+            } elseif ((ord($a["jugador"][$i]) > ord($b["jugador"][$i]))){
+                $dif = true;
+                $orden = 1;
+            }
+            $i += 1;
+        } 
+    }
+    return$orden;
+}
+
+// recibe arreglo partidas y las muestra en orden alfabetico por jugador y palabra sin modificar arreglo original
+//@param array $arreglo
+function mostrarPartidasAbc($arreglo){
+    //array $partidasAbc
+    $partidasAbc = $arreglo;
+    uasort($partidasAbc, 'comparacion');
+    print_r($partidasAbc);
+}
