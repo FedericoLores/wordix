@@ -60,6 +60,7 @@ do {
     $opcion = seleccionarOpcion();
     switch ($opcion) {
         case 1: 
+            echo "ingrese nombre";
              $nombre = solicitarJugador();
             echo "Ingrese el numero de una palabra para jugar";
             $numPal = solicitarNumeroEntre(0, (count($palabras) -1) );
@@ -83,7 +84,7 @@ do {
             break;
         
         case 4:
-
+            echo "ingrese nombre";
             $nombre = solicitarJugador();
             $partidaB = primerGanada($partidas, $nombre);
             
@@ -95,11 +96,15 @@ do {
             break;
         case 5: 
              echo ("ingrese nombre del jugador a ver");
-             $nombreJ=trim(fgets(STDIN));
-             $partidas;
-             imprimirResumenJ($partidas,$nombreJ);
-
-
+             $nombre= solicitarJugador();
+             $posicion = tieneResumen($jugadores, $nombre);
+             if ($posicion <> -1){
+                $jugadores[$posicion] = resumenJugador($partida, $nombre);
+                imprimirResumen($jugadores, $posicion);
+             } else {
+                $jugadores[count($jugadores)] = resumenJugador($partida, $nombre);
+                imprimirResumen($jugadores, (count($jugadores) -1));
+             }
             break;
 
         case 6:
@@ -128,7 +133,6 @@ function ingresarPalabra (){
  */
 function solicitarJugador (){
     //string $nombreSol
-    echo "Ingrese el nombre del jugador";
     $nombreSol = trim(fgets(STDIN));
     while (!ctype_alpha($nombreSol[0])){
         echo "Ingrese un nombre valido";
@@ -220,6 +224,25 @@ function palabraJugada ($arreglo, $jugador, $palabra){
     return $palabJugada;
 }
 
+
+/** recibe coleccion partidas y jugador, devuelve numero de resumen si encontro, o -1 si no tiene
+ * @param array $arreglo
+ * @param string $jugador
+ * @return int
+*/
+function tieneResumen ($arreglo, $jugador){
+    $i = 0;
+    $resumen= -1;
+    $encontrado = false;
+    while ($i < count($arreglo) && !$encontrado){
+        if($arreglo[$i]["jugador"] = $jugador){
+            $encontrado = true;
+            $resumen = $i;
+        }
+        $i += 1;
+    }
+    return $resumen;
+}
 
 
 
@@ -389,20 +412,17 @@ function resumenJugador($partidas, $nombre){
 * @param string $nombreJ
 * @param array $partidas 
 */
-function imprimirResumenJ($resJ,$nombreJ) {
-    $i = 0;
-    while ($resJ[$i]["nombre"] == $nombreJ){
-        echo (" nombre: ".$resJ[$i]["nombre"]);
-        echo (" partidas: ".$resJ[$i]["partidas"]);
-        echo (" puntaje: ".$resJ[$i]["puntaje"]);
-        echo (" victorias: ".$resJ[$i]["victorias"]);
-        echo ("|intento1:  ".$resJ[$i]["intento1"]);
-        echo ("|intento2:  ".$resJ[$i]["intento2"]);
-        echo ("|intento3:  ".$resJ[$i]["intento3"]);
-        echo ("|intento4:  ".$resJ[$i]["intento4"]);
-        echo ("|intento5:  ".$resJ[$i]["intento5"]);
-        echo ("|intento6:  ".$resJ[$i]["intento6"]);
-    }
+function imprimirResumen($arregloJugadores,$posicion) {
+        echo (" nombre: ".$arregloJugadores[$posicion]["nombre"]);
+        echo (" partidas: ".$arregloJugadores[$posicion]["partidas"]);
+        echo (" puntaje: ".$arregloJugadores[$posicion]["puntaje"]);
+        echo (" victorias: ".$arregloJugadores[$posicion]["victorias"]);
+        echo ("|intento1:  ".$arregloJugadores[$posicion]["intento1"]);
+        echo ("|intento2:  ".$arregloJugadores[$posicion]["intento2"]);
+        echo ("|intento3:  ".$arregloJugadores[$posicion]["intento3"]);
+        echo ("|intento4:  ".$arregloJugadores[$posicion]["intento4"]);
+        echo ("|intento5:  ".$arregloJugadores[$posicion]["intento5"]);
+        echo ("|intento6:  ".$arregloJugadores[$$posicion]["intento6"]);
 }
 
 
