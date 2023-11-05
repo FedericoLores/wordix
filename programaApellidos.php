@@ -73,8 +73,10 @@ do {
             break;
 
         case 2: 
-            //completar qué secuencia de pasos ejecutar si el usuario elige la opción 2
-
+            echo "Ingrese su nombre\n";
+            $nombre = solicitarJugador();
+            $numPal = rand(0, (count($palabras) -1) );
+            $partidas[count($partidas)] = jugarWordix($palabras[$numPal], $nombre);
             break;
         case 3: 
             $numMax = count($partidas) - 1;
