@@ -30,13 +30,13 @@ Barra Santiago
    - Legajo 5007
 
 <!-- CONTACT -->
-[![GITHUB][https://img.shields.io/badge/FEDERICO-LORES-yellowgreen?style=for-the-badge]][https://github.com/dvc0de]
+[![GITHUB][https://img.shields.io/badge/FEDERICO-LORES-yellowgreen?style=for-the-badge][https://github.com/dvc0de]
 Mail: federico.lores@est.fi.uncoma.edu.ar
 
-[![GITHUB][https://img.shields.io/badge/GASTON-LLAUPE-yellowgreen?style=for-the-badge]][https://github.com/gastonllaupe]
+[![GITHUB][https://img.shields.io/badge/GASTON-LLAUPE-yellowgreen?style=for-the-badge][https://github.com/gastonllaupe]
 Mail: gaston.llaupe@est.fi.uncoma.edu.ar
 
-[![GITHUB][https://img.shields.io/badge/SANTIAGO-BARR-yellowgreen?style=for-the-badge]][https://github.com/Efimero2004]
+[![GITHUB][https://img.shields.io/badge/SANTIAGO-BARR-yellowgreen?style=for-the-badge][https://github.com/Efimero2004]
 Mail: santiago.barra@est.fi.uncoma.edu.ar
 
 <!-- RECONOCIMIENTOS -->
