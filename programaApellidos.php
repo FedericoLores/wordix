@@ -93,7 +93,12 @@ do {
                 echo "Este jugador no ha ganado ninguna partida";
             }
             break;
-        case 5:
+        case 5: 
+             echo ("ingrese nombre del jugador a ver");
+             $nombreJ=trim(fgets(STDIN));
+             $partidas;
+             imprimirResumenJ($partidas,$nombreJ);
+
 
             break;
 
@@ -341,6 +346,108 @@ function palabraJugada ($arreglo, $jugador, $palabra){
 
 
 
+/** 
+ *por cada jugador de la partida le saco los datos y veo si es igual a otro asi le sumo los puntos de 
+ *ambas partidas del mismo jugador
+ *primero con la variable intentoJ 
+ *@param array $partidas
+ *@param string $nombre
+ *@return array
+ */
+function resumenDeJugador($partidas, $nombre)
+{
+    //variables que se le van a sumar al arreglo de $resumenJugador
+    $intentoJ = 0;
+    $puntajeJ = 0;
+    $victoriasJ = 0;
+    $partidasJ = 0;
+    $i = 0; //contador
+
+    foreach ($partidas as $key => $value) {
+
+        if (($partidas[$key]["jugador"]) == $nombre) {
+            //inicializacion de intentos en 0 en el array
+            $resumenDeJugador[$i]["intento1"] = 0;
+            $resumenDeJugador[$i]["intento2"] = 0;
+            $resumenDeJugador[$i]["intento3"] = 0;
+            $resumenDeJugador[$i]["intento4"] = 0;
+            $resumenDeJugador[$i]["intento5"] = 0;
+            $resumenDeJugador[$i]["intento6"] = 0;
+            echo ("hola " . $partidas[$key]["jugador"] . "\n");
+            $intentoJ = $partidas[$key]["intentos"];
+            $puntajeJ = $puntajeJ + $partidas[$key]["puntaje"];
+            $partidasJ = $partidasJ + 1;
+            if ($puntajeJ > 0) {
+                $victoriasJ = $victoriasJ + 1;
+            }
+            
+            //carga del intento de esta partida en el array 
+            switch ($intentoJ) {
+                case 1:
+                    $resumenDeJugador[$i]["intento1"] = $resumenDeJugador[$i]["intento1"]+1 ;
+                    break;
+                case 2:
+                    $resumenDeJugador[$i]["intento2"] = $resumenDeJugador[$i]["intento2"]+1;
+                    break;
+                case 3:
+                    $resumenDeJugador[$i]["intento3"] = $resumenDeJugador[$i]["intento3"]+1;
+                    break;
+                case 4:
+                    $resumenDeJugador[$i]["intento4"] = $resumenDeJugador[$i]["intento4"]+1;
+                    break;
+                case 5:
+                    $resumenDeJugador[$i]["intento5"] = $resumenDeJugador[$i]["intento5"]+1;
+                    break;
+                case 6:
+                    $resumenDeJugador[$i]["intento6"] = $resumenDeJugador[$i]["intento6"]+1;
+                    break;
+
+                default:
+                    # code...
+                    break;
+            }
+        }
+        $i = $i + 1;
+    }
+    //array que almacena los datos del jugador
+    foreach ($resumenDeJugador as $key => $value) {
+        $resumenDeJugador[$key]["nombre"] = $nombre;
+        $resumenDeJugador[$key]["victorias"] = $victoriasJ;
+        $resumenDeJugador[$key]["partidas"] = $partidasJ;
+        $resumenDeJugador[$key]["puntaje"] = $puntajeJ;
+    }
+    return ($resumenDeJugador);
+}
+
+
+
+
+/**
+* imprime la informacion en el array $partida 
+* del usuario con el nombre pedido anteriormente en ResumenDeJugador();
+* @param string $nombreJ
+* @param array $partidas 
+*/
+function imprimirResumenJ($partidas,$nombreJ) {
+
+   $resJ = resumenDeJugador($partidas, $nombreJ);
+   foreach ($resJ as $key => $value) {
+   echo (" nombre: ".$resJ[$key]["nombre"]);
+   echo (" partidas: ".$resJ[$key]["partidas"]);
+   echo (" puntaje: ".$resJ[$key]["puntaje"]);
+   echo (" victorias: ".$resJ[$key]["victorias"]);
+   
+   echo ("|intento1:  ".$resJ[$key]["intento1"]);
+   echo ("|intento2:  ".$resJ[$key]["intento2"]);
+   echo ("|intento3:  ".$resJ[$key]["intento3"]);
+   echo ("|intento4:  ".$resJ[$key]["intento4"]);
+   echo ("|intento5:  ".$resJ[$key]["intento5"]);
+   echo ("|intento6:  ".$resJ[$key]["intento6"]);
+
+
+  echo ("\n");
+   }
+}
 
 
 
