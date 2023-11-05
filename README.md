@@ -29,14 +29,16 @@ Llaupe Gastón
 Barra Santiago
    - Legajo 5007
 
-<!-- CONTACT -->
+<!-- CONTACTO -->
+## Contacto
+
 [![GITHUB][personal-shield]][personal-url]
 Mail: federico.lores@est.fi.uncoma.edu.ar
 
-[![GITHUB][https://img.shields.io/badge/GASTON-LLAUPE-yellowgreen?style=for-the-badge][https://github.com/gastonllaupe]
+[![GITHUB][personal-shield2]][personal-url2]
 Mail: gaston.llaupe@est.fi.uncoma.edu.ar
 
-[![GITHUB][https://img.shields.io/badge/SANTIAGO-BARR-yellowgreen?style=for-the-badge][https://github.com/Efimero2004]
+[![GITHUB][personal-shield3]][personal-url3]
 Mail: santiago.barra@est.fi.uncoma.edu.ar
 
 <!-- RECONOCIMIENTOS -->
@@ -55,5 +57,9 @@ Este projecto se realizo con los siguientes recursos :heart:
 <!-- MY GITHUB -->
 [personal-shield]: https://img.shields.io/badge/FEDERICO-LORES-yellowgreen?style=for-the-badge
 [personal-url]: https://github.com/dvc0de
+[personal-shield2]: https://img.shields.io/badge/GASTON-LLAUPE-yellowgreen?style=for-the-badge
+[personal-url2]: https://github.com/gastonllaupe
+[personal-shield3]: https://img.shields.io/badge/SANTIAGO-BARRA-yellowgreen?style=for-the-badge
+[personal-url3]: https://github.com/Efimero2004
 <!-- LICENSE -->
 [license-shield]: https://img.shields.io/github/license/Ileriayo/markdown-badges?style=for-the-badge
