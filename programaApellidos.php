@@ -46,6 +46,7 @@ function cargarColeccionPalabras()
 //Inicialización de variables:
 $partidas = cargarPartidas();
 $palabras = cargarColeccionPalabras();
+$jugadores = [];
 
 //Proceso:
 
@@ -55,7 +56,7 @@ $palabras = cargarColeccionPalabras();
 
 
 
-/*
+
 do {
     $opcion = seleccionarOpcion();
     switch ($opcion) {
@@ -64,7 +65,7 @@ do {
              $nombre = solicitarJugador();
             echo "Ingrese el numero de una palabra para jugar";
             $numPal = solicitarNumeroEntre(0, (count($palabras) -1) );
-            while (palabraJugada($partidas, $nombre, $palabras[$numPal]) <> -1){
+            while (!(palabraJugada($partidas, $nombre, $palabras[$numPal]) == -1)){
                 echo "ya utilizo esa palabra, por favor ingrese el numero de otra palabra";
                 $numPal = solicitarNumeroEntre(0, (count($palabras) -1) );
             }
@@ -79,7 +80,7 @@ do {
             $numMax = count($partidas) - 1;
             $numMin = 0;
             echo "Ingrese un numero de partida";
-            $numPar = solicitarNumeroEntre($numMin, $numMax) -1;
+            $numPar = solicitarNumeroEntre($numMin, $numMax);
             numeroPartida($partidas, $numPar);
             break;
         
@@ -99,10 +100,10 @@ do {
              $nombre= solicitarJugador();
              $posicion = tieneResumen($jugadores, $nombre);
              if ($posicion <> -1){
-                $jugadores[$posicion] = resumenJugador($partida, $nombre);
+                $jugadores[$posicion] = resumenJugador($partidas, $nombre);
                 imprimirResumen($jugadores, $posicion);
              } else {
-                $jugadores[count($jugadores)] = resumenJugador($partida, $nombre);
+                $jugadores[count($jugadores)] = resumenJugador($partidas, $nombre);
                 imprimirResumen($jugadores, (count($jugadores) -1));
              }
             break;
@@ -113,11 +114,11 @@ do {
 
         case 7:
             $palabraIN = leerPalabra5Letras();
-            $partidas = agregarPalabra($partidas, $palabraIN);
+            $palabras = agregarPalabra($palabras, $palabraIN);
             break;
     }
 } while ($opcion != 8);
-*/
+
 
 /** pide a usuario una palabra de 5 letras y retorna la palabra 
  * @return string
@@ -174,9 +175,13 @@ function numeroPartida ($arregloPar, $numeroP){
     $arregloPar[$numeroP]["jugador"] ,
     "\nPuntaje: " ,
     $arregloPar[$numeroP]["puntaje"] ,
-    " puntos \nIntento: Adivino la palabra en " ,
-    $arregloPar[$numeroP]["intentos"] ,
-    " intentos \n**********************************";
+    " puntos \n";
+    if ($arregloPar[$numeroP]["intentos"] == 0){
+        echo "Intento: No adivinó la palabra \n**********************************";
+    } else {
+        echo "Intento: Adivino la palabra en ",$arregloPar[$numeroP]["intentos"] , " intentos \n**********************************";
+    }
+    
 }
 
 /** Dada una colección de partidas y el nombre de un jugador, retorne la primer partida ganada 
@@ -190,18 +195,16 @@ function primerGanada ($partidasT, $nombreJugadorGana) {
     $m = count($partidasT); // limite del array
     $l = 0; //contador
     $encontradoGana = false;
+    $posicionGanada = -1;
     //remplazar logica con llamado a palabraJugada
     while ($l < $m && !$encontradoGana) {
         if (($partidasT[$l]["jugador"] == $nombreJugadorGana) && $partidasT[$l]["puntaje"] > 0){
             $encontradoGana = true;
-            $l -= 1;
+            $posicionGanada = $l;
         }
         $l += 1;
     }
-    if ($encontradoGana = false){
-        $l = -1;
-    }
-    return $l;
+    return $posicionGanada;
 }
 
 /** recibe coleccion partidas, jugador, y palabra, devuelve numero de partida si encontro, o -1 si no la uso
@@ -214,7 +217,7 @@ function palabraJugada ($arreglo, $jugador, $palabra){
     $palabJugada = -1;
     $encontrada = false;
     while ($i < count($arreglo) && !$encontrada){
-        if($arreglo[$i]["jugador"] = $jugador && $arreglo[$i]["palabraWordix"] = $palabra){
+        if($arreglo[$i]["jugador"] == $jugador && $arreglo[$i]["palabraWordix"] == $palabra){
             $encontrada = true;
             $palabJugada = $i;
         }
@@ -236,7 +239,7 @@ function tieneResumen ($arreglo, $jugador){
     $resumen= -1;
     $encontrado = false;
     while ($i < count($arreglo) && !$encontrado){
-        if($arreglo[$i]["jugador"] = $jugador){
+        if($arreglo[$i]["jugador"] == $jugador){
             $encontrado = true;
             $resumen = $i;
         }
@@ -352,11 +355,11 @@ function tieneResumen ($arreglo, $jugador){
  *por cada jugador de la partida le saco los datos y veo si es igual a otro asi le sumo los puntos de 
  *ambas partidas del mismo jugador
  *primero con la variable intentoJ 
- *@param array $partidas
+ *@param array $arrayPar
  *@param string $nombre
  *@return array
  */
-function resumenJugador($partidas, $nombre){
+function resumenJugador($arrayPar, $nombre){
     //variables que se le van a sumar al arreglo de $resumenJugador
     $puntajeJ = 0;
     $victoriasJ = 0;
@@ -368,17 +371,17 @@ function resumenJugador($partidas, $nombre){
     $intento5 = 0;
     $intento6 = 0;
 
-    foreach ($partidas as $i) {
+    foreach ($arrayPar as $i => $elemento) {
 
-        if (($partidas[$i]["jugador"]) == $nombre) {
-            $puntajeJ += $partidas[$i]["puntaje"];
+        if (($arrayPar[$i]["jugador"]) == $nombre) {
+            $puntajeJ += $arrayPar[$i]["puntaje"];
             $partidasJ += 1;
             if ($puntajeJ > 0) {
                 $victoriasJ += 1;
             }
             
             //carga del intento de esta partida en el array 
-            switch ($partidas[$i]["intentos"]) {
+            switch ($arrayPar[$i]["intentos"]) {
                 case 1:
                     $intento1 += 1;
                     break;
@@ -418,12 +421,12 @@ function imprimirResumen($arregloJugadores,$posicion) {
         echo (" partidas: ".$arregloJugadores[$posicion]["partidas"]);
         echo (" puntaje: ".$arregloJugadores[$posicion]["puntaje"]);
         echo (" victorias: ".$arregloJugadores[$posicion]["victorias"]);
-        echo ("|intento1:  ".$arregloJugadores[$posicion]["intento1"]);
-        echo ("|intento2:  ".$arregloJugadores[$posicion]["intento2"]);
-        echo ("|intento3:  ".$arregloJugadores[$posicion]["intento3"]);
-        echo ("|intento4:  ".$arregloJugadores[$posicion]["intento4"]);
-        echo ("|intento5:  ".$arregloJugadores[$posicion]["intento5"]);
-        echo ("|intento6:  ".$arregloJugadores[$$posicion]["intento6"]);
+        echo ("|intento1:  ".$arregloJugadores[$posicion]["intento 1"]);
+        echo ("|intento2:  ".$arregloJugadores[$posicion]["intento 2"]);
+        echo ("|intento3:  ".$arregloJugadores[$posicion]["intento 3"]);
+        echo ("|intento4:  ".$arregloJugadores[$posicion]["intento 4"]);
+        echo ("|intento5:  ".$arregloJugadores[$posicion]["intento 5"]);
+        echo ("|intento6:  ".$arregloJugadores[$posicion]["intento 6"]);
 }
 
 
