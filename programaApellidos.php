@@ -40,11 +40,12 @@ function cargarColeccionPalabras()
 /**************************************/
 
 //Declaración de variables:
-//array $partidas
+//array $partidas, $palabras
 
 
 //Inicialización de variables:
 $partidas = cargarPartidas();
+$palabras = cargarColeccionPalabras();
 
 //Proceso:
 
@@ -60,13 +61,13 @@ do {
     switch ($opcion) {
         case 1: 
              $nombre = solicitarJugador();
-            echo "num palabra";
-            $numPal = trim(fgets(STDIN));
-            while (funcionRevisarTodo($jugador, $palabra)){
-                echo "otra palabra";
-                $numPal = trim(fgets(STDIN));
+            echo "Ingrese el numero de una palabra para jugar";
+            $numPal = solicitarNumeroEntre(0, (count($palabras) -1) );
+            while (palabraJugada($partidas, $nombre, $palabras[$numPal]) <> -1){
+                echo "ya utilizo esa palabra, por favor ingrese el numero de otra palabra";
+                $numPal = solicitarNumeroEntre(0, (count($palabras) -1) );
             }
-            $partidas[count($partidas)] = ["palabraWordix" => $palabraIntento, "jugador" => $nombre, "intentos" => $nroIntento, "puntaje" => $puntaje]
+            $partidas[count($partidas)] = jugarWordix($palabras[$numPal], $nombre);
             break;
 
         case 2: 
@@ -154,7 +155,6 @@ return $ejemPartidas;
  * @param string $nombreJugador
  * @return array
 */
-// esta funcion esta pidiendo un arreglo sin usarlo??
 function resumenJugador ($partidas, $nombreJugador) {
     //int $arrayCuenta
     //boolean $encontrado
@@ -203,6 +203,7 @@ function primerGanada ($partidasT, $nombreJugadorGana) {
     $m = count($partidasT); // limite del array
     $l = 0; //contador
     $encontradoGana = false;
+    //remplazar logica con llamado a palabraJugada
     while ($l < $m && !$encontradoGana) {
         if (($partidasT[$l]["jugador"] == $nombreJugadorGana) && $partidasT[$l]["puntaje"] > 0){
             $encontradoGana = true;
@@ -216,7 +217,25 @@ function primerGanada ($partidasT, $nombreJugadorGana) {
     return $l;
 }
 
+/** recibe coleccion partidas, jugador, y palabra, devuelve numero de partida si encontro, o -1 si no la uso
+ * @param array $arreglo
+ * @param string $jugador, $palabra
+ * @return int
+*/
+function palabraJugada ($arreglo, $jugador, $palabra){
+    $i = 0;
+    $palabJugada = -1;
+    $encontrada = false;
+    while ($i < count($arreglo) && !$encontrada){
+        if($arreglo[$i]["jugador"] = $jugador && $arreglo[$i]["palabraWordix"] = $palabra){
+            $encontrada = true;
+            $palabJugada = $i;
+        }
+        $i += 1;
+    }
 
+    return $palabJugada;
+}
 
 
 
@@ -416,7 +435,11 @@ function primerGanada ($partidasT, $nombreJugadorGana) {
 
 
 
-
+/**
+ * @param array $coleccionPalabras
+ * @param string $palabraAgregada
+ * @return array
+ */
 function agregarPalabra ($coleccionPalabras, $palabraAgregada){
     $coleccionActualizada = $coleccionPalabras;
     $coleccionActualizada[count($coleccionActualizada)] = $palabraAgregada;
@@ -424,7 +447,9 @@ function agregarPalabra ($coleccionPalabras, $palabraAgregada){
 }
 
 
-/* ponemos una introduccion-bienvenida?? */
+/** ponemos una introduccion-bienvenida??
+ * @return int
+ */
 function seleccionarOpcion(){
     //int $opcionInput
     echo "seleccione una opción por favor \n";
@@ -434,9 +459,10 @@ function seleccionarOpcion(){
     return $opcionInput;
 }
 
-//compara para uasort
-//@param string $a, $b
-//@return int
+/** compara para uasort
+ * @param array $a, $b
+ * @return int
+ */
 function comparacion($a, $b){
     //boolean $dif
     //int $i, $limit
@@ -478,8 +504,10 @@ function comparacion($a, $b){
     return$orden;
 }
 
-// recibe arreglo partidas y las muestra en orden alfabetico por jugador y palabra sin modificar arreglo original
-//@param array $arreglo
+
+/** recibe arreglo partidas y las muestra en orden alfabetico por jugador y palabra sin modificar arreglo original
+ * @param array $arreglo
+ */
 function mostrarPartidasAbc($arreglo){
     //array $partidasAbc
     $partidasAbc = $arreglo;
