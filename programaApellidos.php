@@ -61,12 +61,12 @@ do {
     $opcion = seleccionarOpcion();
     switch ($opcion) {
         case 1: 
-            echo "Ingrese su nombre";
+            echo "Ingrese su nombre\n";
              $nombre = solicitarJugador();
-            echo "Ingrese el numero de una palabra para jugar";
+            echo "Ingrese el numero de una palabra para jugar\n";
             $numPal = solicitarNumeroEntre(0, (count($palabras) -1) );
             while (!(palabraJugada($partidas, $nombre, $palabras[$numPal]) == -1)){
-                echo "ya utilizo esa palabra, por favor ingrese el numero de otra palabra";
+                echo "ya utilizo esa palabra, por favor ingrese el numero de otra palabra\n";
                 $numPal = solicitarNumeroEntre(0, (count($palabras) -1) );
             }
             $partidas[count($partidas)] = jugarWordix($palabras[$numPal], $nombre);
@@ -79,24 +79,24 @@ do {
         case 3: 
             $numMax = count($partidas) - 1;
             $numMin = 0;
-            echo "Ingrese un numero de partida";
+            echo "Ingrese un numero de partida\n";
             $numPar = solicitarNumeroEntre($numMin, $numMax);
             numeroPartida($partidas, $numPar);
             break;
         
         case 4:
-            echo "Ingrese el nombre del jugador que desea ver";
+            echo "Ingrese el nombre del jugador que desea ver\n";
             $nombre = solicitarJugador();
             $partidaB = primerGanada($partidas, $nombre);
             
             if (!($partidaB == -1)){
                 numeroPartida($partidas, $partidaB);
             }else {
-                echo "Este jugador no ha ganado ninguna partida";
+                echo "Este jugador no ha ganado ninguna partida\n";
             }
             break;
         case 5: 
-             echo ("ingrese nombre del jugador a ver");
+             echo ("ingrese nombre del jugador a ver\n");
              $nombre= solicitarJugador();
              $posicion = tieneResumen($jugadores, $nombre);
              if ($posicion <> -1){
@@ -136,7 +136,7 @@ function solicitarJugador (){
     //string $nombreSol
     $nombreSol = trim(fgets(STDIN));
     while (!ctype_alpha($nombreSol[0])){
-        echo "Ingrese un nombre valido";
+        echo "Ingrese un nombre valido\n";
         $nombreSol = trim(fgets(STDIN));
     }
     $nombreSol = strtolower($nombreSol);
@@ -179,7 +179,7 @@ function numeroPartida ($arregloPar, $numeroP){
     if ($arregloPar[$numeroP]["intentos"] == 0){
         echo "Intento: No adivinó la palabra \n**********************************";
     } else {
-        echo "Intento: Adivino la palabra en ",$arregloPar[$numeroP]["intentos"] , " intentos \n**********************************";
+        echo "Intento: Adivino la palabra en ",$arregloPar[$numeroP]["intentos"] , " intentos \n**********************************\n";
     }
     
 }
@@ -417,16 +417,18 @@ function resumenJugador($arrayPar, $nombre){
 * @param array $partidas 
 */
 function imprimirResumen($arregloJugadores,$posicion) {
-        echo (" nombre: ".$arregloJugadores[$posicion]["nombre"]);
-        echo (" partidas: ".$arregloJugadores[$posicion]["partidas"]);
-        echo (" puntaje: ".$arregloJugadores[$posicion]["puntaje"]);
-        echo (" victorias: ".$arregloJugadores[$posicion]["victorias"]);
-        echo ("|intento1:  ".$arregloJugadores[$posicion]["intento 1"]);
-        echo ("|intento2:  ".$arregloJugadores[$posicion]["intento 2"]);
-        echo ("|intento3:  ".$arregloJugadores[$posicion]["intento 3"]);
-        echo ("|intento4:  ".$arregloJugadores[$posicion]["intento 4"]);
-        echo ("|intento5:  ".$arregloJugadores[$posicion]["intento 5"]);
-        echo ("|intento6:  ".$arregloJugadores[$posicion]["intento 6"]);
+        echo "**********************************\n";
+        echo (" RESUMEN DEL JUGADOR: ".$arregloJugadores[$posicion]["nombre"]."\n");
+        echo (" Partidas: ".$arregloJugadores[$posicion]["partidas"]."\n");
+        echo (" Puntaje: ".$arregloJugadores[$posicion]["puntaje"]."\n");
+        echo (" Victorias: ".$arregloJugadores[$posicion]["victorias"]."\n");
+        echo (" Intento1:  ".$arregloJugadores[$posicion]["intento 1"]."\n");
+        echo (" Intento2:  ".$arregloJugadores[$posicion]["intento 2"]."\n");
+        echo (" Intento3:  ".$arregloJugadores[$posicion]["intento 3"]."\n");
+        echo (" Intento4:  ".$arregloJugadores[$posicion]["intento 4"]."\n");
+        echo (" Intento5:  ".$arregloJugadores[$posicion]["intento 5"]."\n");
+        echo (" Intento6:  ".$arregloJugadores[$posicion]["intento 6"]."\n");
+        echo "**********************************\n";
 }
 
 
@@ -540,7 +542,7 @@ function agregarPalabra ($coleccionPalabras, $palabraAgregada){
 function seleccionarOpcion(){
     //int $opcionInput
     echo "seleccione una opción por favor \n";
-    echo " 1) Jugar eligiendo palabra \n 2) Jugar con palabra aleatoria \n 3) Ver partida \n 4) Ver primer partida ganadora \n 5) Ver estadísticas de un jugador \n 6) Ver lista de partidas \n 7) Agregar una palabra \n 8) Salir";
+    echo " 1) Jugar eligiendo palabra \n 2) Jugar con palabra aleatoria \n 3) Ver partida \n 4) Ver primer partida ganadora \n 5) Ver estadísticas de un jugador \n 6) Ver lista de partidas \n 7) Agregar una palabra \n 8) Salir\n";
     /* llama modulo numeroValido */
     $opcionInput = solicitarNumeroEntre(1, 8);
     return $opcionInput;
