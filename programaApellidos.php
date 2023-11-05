@@ -60,7 +60,7 @@ do {
     $opcion = seleccionarOpcion();
     switch ($opcion) {
         case 1: 
-            echo "ingrese nombre";
+            echo "Ingrese su nombre";
              $nombre = solicitarJugador();
             echo "Ingrese el numero de una palabra para jugar";
             $numPal = solicitarNumeroEntre(0, (count($palabras) -1) );
@@ -76,7 +76,7 @@ do {
 
             break;
         case 3: 
-            $numMax = count($partidas);
+            $numMax = count($partidas) - 1;
             $numMin = 0;
             echo "Ingrese un numero de partida";
             $numPar = solicitarNumeroEntre($numMin, $numMax) -1;
@@ -84,11 +84,11 @@ do {
             break;
         
         case 4:
-            echo "ingrese nombre";
+            echo "Ingrese el nombre del jugador que desea ver";
             $nombre = solicitarJugador();
             $partidaB = primerGanada($partidas, $nombre);
             
-            if (!$partidaB = -1){
+            if (!($partidaB == -1)){
                 numeroPartida($partidas, $partidaB);
             }else {
                 echo "Este jugador no ha ganado ninguna partida";
@@ -108,11 +108,11 @@ do {
             break;
 
         case 6:
-
+            mostrarPartidasAbc($partidas);
             break;
 
         case 7:
-            $palabraIN = ingresarPalabra();
+            $palabraIN = leerPalabra5Letras();
             $partidas = agregarPalabra($partidas, $palabraIN);
             break;
     }
@@ -230,6 +230,7 @@ function palabraJugada ($arreglo, $jugador, $palabra){
  * @param string $jugador
  * @return int
 */
+//revisar si se puede combinar logica con palabraJugada
 function tieneResumen ($arreglo, $jugador){
     $i = 0;
     $resumen= -1;
