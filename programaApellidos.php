@@ -155,28 +155,6 @@ $ejemPartidas[9]=["palabraWordix"=>"TINTO","jugador"=>"damian","intentos"=>6,"pu
 return $ejemPartidas;
 }
 
-/** Dada colección de partidas y nombre del jugador, retorna un arreglo con el resumen del jugador 
- * @param array $partidas
- * @param string $nombreJugador
- * @return array
-*/
-function resumenJugador ($partidas, $nombreJugador) {
-    //int $arrayCuenta
-    //boolean $encontrado
-    $arrayCuenta = count($partidas);
-    $k = 0; /*variable para ir armando el arreglo resumen */
-    $encontrado = false;
-    while ($k < $arrayCuenta && !$encontrado) {
-        if ($partidas[$k]["jugador"]["nombre"] == $nombreJugador){
-            $encontrado = true;
-            //se resta $k para mantener el valor resultado para mostrar, si encuentran una manera mas eficiente por favor remplazen
-            $k -= 1;
-        }
-        $k += 1;
-    }
-    //se asume que nunca se va a ejecutar con valores invalidos
-    return $partidas[$k]["jugador"];
-}
 
 /** Dado un numero de partida muestra en pantalla los datos de esa partida
  * @param int $numeroP
@@ -354,69 +332,52 @@ function palabraJugada ($arreglo, $jugador, $palabra){
  *@param string $nombre
  *@return array
  */
-function resumenDeJugador($partidas, $nombre)
-{
+function resumenJugador($partidas, $nombre){
     //variables que se le van a sumar al arreglo de $resumenJugador
-    $intentoJ = 0;
     $puntajeJ = 0;
     $victoriasJ = 0;
     $partidasJ = 0;
-    $i = 0; //contador
+    $intento1 = 0;
+    $intento2 = 0;
+    $intento3 = 0;
+    $intento4 = 0;
+    $intento5 = 0;
+    $intento6 = 0;
 
-    foreach ($partidas as $key => $value) {
+    foreach ($partidas as $i) {
 
-        if (($partidas[$key]["jugador"]) == $nombre) {
-            //inicializacion de intentos en 0 en el array
-            $resumenDeJugador[$i]["intento1"] = 0;
-            $resumenDeJugador[$i]["intento2"] = 0;
-            $resumenDeJugador[$i]["intento3"] = 0;
-            $resumenDeJugador[$i]["intento4"] = 0;
-            $resumenDeJugador[$i]["intento5"] = 0;
-            $resumenDeJugador[$i]["intento6"] = 0;
-            echo ("hola " . $partidas[$key]["jugador"] . "\n");
-            $intentoJ = $partidas[$key]["intentos"];
-            $puntajeJ = $puntajeJ + $partidas[$key]["puntaje"];
-            $partidasJ = $partidasJ + 1;
+        if (($partidas[$i]["jugador"]) == $nombre) {
+            $puntajeJ += $partidas[$i]["puntaje"];
+            $partidasJ += 1;
             if ($puntajeJ > 0) {
-                $victoriasJ = $victoriasJ + 1;
+                $victoriasJ += 1;
             }
             
             //carga del intento de esta partida en el array 
-            switch ($intentoJ) {
+            switch ($partidas[$i]["intentos"]) {
                 case 1:
-                    $resumenDeJugador[$i]["intento1"] = $resumenDeJugador[$i]["intento1"]+1 ;
+                    $intento1 += 1;
                     break;
                 case 2:
-                    $resumenDeJugador[$i]["intento2"] = $resumenDeJugador[$i]["intento2"]+1;
+                    $intento2 += 1;
                     break;
                 case 3:
-                    $resumenDeJugador[$i]["intento3"] = $resumenDeJugador[$i]["intento3"]+1;
+                    $intento3 += 1;
                     break;
                 case 4:
-                    $resumenDeJugador[$i]["intento4"] = $resumenDeJugador[$i]["intento4"]+1;
+                    $intento4 += 1;
                     break;
                 case 5:
-                    $resumenDeJugador[$i]["intento5"] = $resumenDeJugador[$i]["intento5"]+1;
+                    $intento5 += 1;
                     break;
                 case 6:
-                    $resumenDeJugador[$i]["intento6"] = $resumenDeJugador[$i]["intento6"]+1;
-                    break;
-
-                default:
-                    # code...
+                    $intento6 += 1;
                     break;
             }
         }
-        $i = $i + 1;
     }
-    //array que almacena los datos del jugador
-    foreach ($resumenDeJugador as $key => $value) {
-        $resumenDeJugador[$key]["nombre"] = $nombre;
-        $resumenDeJugador[$key]["victorias"] = $victoriasJ;
-        $resumenDeJugador[$key]["partidas"] = $partidasJ;
-        $resumenDeJugador[$key]["puntaje"] = $puntajeJ;
-    }
-    return ($resumenDeJugador);
+    $arregloResumen = ["nombre" => $nombre, "partidas" => $partidasJ, "puntaje" => $puntajeJ, "victorias" => $victoriasJ, "intento 1" => $intento1, "intento 2" => $intento2, "intento 3" => $intento3, "intento 4" => $intento4, "intento 5" => $intento5, "intento 6" => $intento6];
+    return ($arregloResumen);
 }
 
 
@@ -428,25 +389,20 @@ function resumenDeJugador($partidas, $nombre)
 * @param string $nombreJ
 * @param array $partidas 
 */
-function imprimirResumenJ($partidas,$nombreJ) {
-
-   $resJ = resumenDeJugador($partidas, $nombreJ);
-   foreach ($resJ as $key => $value) {
-   echo (" nombre: ".$resJ[$key]["nombre"]);
-   echo (" partidas: ".$resJ[$key]["partidas"]);
-   echo (" puntaje: ".$resJ[$key]["puntaje"]);
-   echo (" victorias: ".$resJ[$key]["victorias"]);
-   
-   echo ("|intento1:  ".$resJ[$key]["intento1"]);
-   echo ("|intento2:  ".$resJ[$key]["intento2"]);
-   echo ("|intento3:  ".$resJ[$key]["intento3"]);
-   echo ("|intento4:  ".$resJ[$key]["intento4"]);
-   echo ("|intento5:  ".$resJ[$key]["intento5"]);
-   echo ("|intento6:  ".$resJ[$key]["intento6"]);
-
-
-  echo ("\n");
-   }
+function imprimirResumenJ($resJ,$nombreJ) {
+    $i = 0;
+    while ($resJ[$i]["nombre"] == $nombreJ){
+        echo (" nombre: ".$resJ[$i]["nombre"]);
+        echo (" partidas: ".$resJ[$i]["partidas"]);
+        echo (" puntaje: ".$resJ[$i]["puntaje"]);
+        echo (" victorias: ".$resJ[$i]["victorias"]);
+        echo ("|intento1:  ".$resJ[$i]["intento1"]);
+        echo ("|intento2:  ".$resJ[$i]["intento2"]);
+        echo ("|intento3:  ".$resJ[$i]["intento3"]);
+        echo ("|intento4:  ".$resJ[$i]["intento4"]);
+        echo ("|intento5:  ".$resJ[$i]["intento5"]);
+        echo ("|intento6:  ".$resJ[$i]["intento6"]);
+    }
 }
 
 
