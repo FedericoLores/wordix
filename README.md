@@ -30,7 +30,7 @@ Barra Santiago
    - Legajo 5007
 
 <!-- CONTACT -->
-[![GITHUB][https://img.shields.io/badge/FEDERICO-LORES-yellowgreen?style=for-the-badge][https://github.com/dvc0de]
+[![GITHUB][personal-shield]][personal-url]
 Mail: federico.lores@est.fi.uncoma.edu.ar
 
 [![GITHUB][https://img.shields.io/badge/GASTON-LLAUPE-yellowgreen?style=for-the-badge][https://github.com/gastonllaupe]
@@ -52,5 +52,8 @@ Este projecto se realizo con los siguientes recursos :heart:
 <!-- BUILT WITH -->
 [github-shield]: https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white
 [github-url]: https://github.com
+<!-- MY GITHUB -->
+[personal-shield]: https://img.shields.io/badge/FEDERICO-LORES-yellowgreen?style=for-the-badge
+[personal-url]: https://github.com/dvc0de
 <!-- LICENSE -->
 [license-shield]: https://img.shields.io/github/license/Ileriayo/markdown-badges?style=for-the-badge
