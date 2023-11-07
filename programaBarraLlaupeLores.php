@@ -374,7 +374,10 @@ do {
         case 2: 
             echo "Ingrese su nombre\n";
             $nombre = solicitarJugador();
-            $numPal = rand(0, (count($palabras) -1) );
+            //loop infinito si jugador uso todas las palabras disponibles
+            do {
+                $numPal = rand(0, (count($palabras) -1) );
+            } while (!(palabraJugada($partidas, $nombre, $palabras[$numPal]) == -1));
             $partidas[count($partidas)] = jugarWordix($palabras[$numPal], $nombre);
             break;
 
