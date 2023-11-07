@@ -58,7 +58,24 @@ function solicitarJugador (){
     return $nombreSol;
 }
 
-
+/** Comprueba si el usuario ha jugado una partida antes
+ * @param string $nombreE
+ * @param array $partidasE
+ * @return boolean
+ */
+function jugadorExiste($nombreE,$partidasE){
+    //boolean $existe
+    $m = count($partidasE); // limite del array
+    $l = 0; //contador
+    $existe = false;
+    while ($l < $m && !$existe) {
+        if ($partidasE[$l]["jugador"] == $nombreE){
+            $existe = true;
+        }
+        $l += 1;
+    }
+    return $existe;
+}
 
 
 /** inicializa una estructura de datos con ejemplos de partidas y retorna el arreglo
@@ -346,13 +363,13 @@ function mostrarPartidasAbc($arreglo){
 /**************************************/
 
 //Declaración de variables:
-//array $partidas, $palabras, $jugadores
+//array $partidas, $palabras, $jugador
 
 
 //Inicialización de variables:
 $partidas = cargarPartidas();
 $palabras = cargarColeccionPalabras();
-$jugadores = [];
+$jugador = [];
 
 //Proceso:
 
@@ -375,8 +392,8 @@ do {
             echo "Ingrese su nombre\n";
             $nombre = solicitarJugador();
             //loop infinito si jugador uso todas las palabras disponible
-            $jugadores[count($jugadores)] = resumenJugador($partidas, $nombre);
-            if ($jugadores[count($jugadores)-1]["partidas"] == count($palabras)){
+            $jugador[count($jugador)] = resumenJugador($partidas, $nombre);
+            if ($jugador[count($jugador)-1]["partidas"] == count($palabras)){
                 echo "Ya jugó con todas las palabras disponibles\n";
             } else {
                 do {
@@ -397,6 +414,7 @@ do {
         case 4:
             echo "Ingrese el nombre del jugador que desea ver\n";
             $nombre = solicitarJugador();
+            if (jugadorExiste($nombre,$partidas)== true){
             $partidaB = primerGanada($partidas, $nombre);
             
             if (!($partidaB == -1)){
@@ -404,18 +422,21 @@ do {
             }else {
                 echo "Este jugador no ha ganado ninguna partida\n";
             }
+            }else {
+                echo "Este jugador no ha jugado ninguna partida\n";
+            }
             break;
         case 5: 
              echo ("ingrese nombre del jugador a ver\n");
              $nombre= solicitarJugador();
-             $posicion = tieneResumen($jugadores, $nombre);
+             $posicion = tieneResumen($jugador, $nombre);
              //borramos esto y dejamos el resumen $jugador??
              if ($posicion <> -1){
-                $jugadores[$posicion] = resumenJugador($partidas, $nombre);
-                imprimirResumen($jugadores, $posicion);
+                $jugador[$posicion] = resumenJugador($partidas, $nombre);
+                imprimirResumen($jugador, $posicion);
              } else {
-                $jugadores[count($jugadores)] = resumenJugador($partidas, $nombre);
-                imprimirResumen($jugadores, (count($jugadores) -1));
+                $jugador[count($jugador)] = resumenJugador($partidas, $nombre);
+                imprimirResumen($jugador, (count($jugador) -1));
              }
             break;
 
