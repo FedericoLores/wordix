@@ -374,11 +374,16 @@ do {
         case 2: 
             echo "Ingrese su nombre\n";
             $nombre = solicitarJugador();
-            //loop infinito si jugador uso todas las palabras disponibles
-            do {
-                $numPal = rand(0, (count($palabras) -1) );
-            } while (!(palabraJugada($partidas, $nombre, $palabras[$numPal]) == -1));
-            $partidas[count($partidas)] = jugarWordix($palabras[$numPal], $nombre);
+            //loop infinito si jugador uso todas las palabras disponible
+            $jugadores[count($jugadores)] = resumenJugador($partidas, $nombre);
+            if ($jugadores[count($jugadores)-1]["partidas"] == count($palabras)){
+                echo "Ya jugó con todas las palabras disponibles\n";
+            } else {
+                do {
+                    $numPal = rand(0, (count($palabras) -1) );
+                } while (!(palabraJugada($partidas, $nombre, $palabras[$numPal]) == -1));
+                    $partidas[count($partidas)] = jugarWordix($palabras[$numPal], $nombre);
+            }
             break;
 
         case 3: 
@@ -404,6 +409,7 @@ do {
              echo ("ingrese nombre del jugador a ver\n");
              $nombre= solicitarJugador();
              $posicion = tieneResumen($jugadores, $nombre);
+             //borramos esto y dejamos el resumen $jugador??
              if ($posicion <> -1){
                 $jugadores[$posicion] = resumenJugador($partidas, $nombre);
                 imprimirResumen($jugadores, $posicion);
