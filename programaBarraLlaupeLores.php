@@ -349,7 +349,7 @@ do {
     $opcion = seleccionarOpcion();
     switch ($opcion) {
         case 1: 
-            echo "Ingrese su nombre\n";
+            echo "Ingrese su nombre: ";
              $nombre = solicitarJugador();
             echo "Ingrese el numero de una palabra para jugar\n";
             $numPal = solicitarNumeroEntre(0, (count($palabras) -1) );
@@ -361,9 +361,8 @@ do {
             break;
 
         case 2: 
-            echo "Ingrese su nombre\n";
+            echo "Ingrese su nombre: ";
             $nombre = solicitarJugador();
-            //loop infinito si jugador uso todas las palabras disponible
             $jugador = resumenJugador($partidas, $nombre);
             if ($jugador["partidas"] == count($palabras)){
                 echo "Ya jugó con todas las palabras disponibles\n";
@@ -378,7 +377,7 @@ do {
         case 3: 
             $numMax = count($partidas) - 1;
             $numMin = 0;
-            echo "Ingrese un numero de partida\n";
+            echo "Ingrese un numero de partida: ";
             $numPar = solicitarNumeroEntre($numMin, $numMax);
             numeroPartida($partidas, $numPar);
             break;
@@ -391,20 +390,20 @@ do {
                 if (!($partida == -1)){
                     numeroPartida($partidas, $partida);
                 }else {
-                    echo "Este jugador no ha ganado ninguna partida\n";
+                    echo $nombre , " no ha ganado ninguna partida\n";
                 }
             }else {
-                echo "Este jugador no ha jugado ninguna partida\n";
+                echo $nombre , " no ha jugado ninguna partida\n";
             }
             break;
         case 5: 
-             echo ("ingrese nombre del jugador a ver\n");
+             echo ("ingrese nombre del jugador a ver: ");
              $nombre= solicitarJugador();
              if (jugadorExiste($nombre, $partidas)){ 
                 $jugador = resumenJugador($partidas, $nombre);
                 imprimirResumen($jugador);
              } else {
-                echo "Este jugador no ha jugado ninguna partida \n";
+                echo $nombre , " no ha jugado ninguna partida \n";
              }
             break;
 
@@ -418,6 +417,8 @@ do {
             break;
     }
 } while ($opcion != 8);
+
+echo "Adios!";
 
 
 
