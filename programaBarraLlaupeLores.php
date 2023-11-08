@@ -59,20 +59,20 @@ function solicitarJugador (){
 }
 
 /** Comprueba si el usuario ha jugado una partida antes
- * @param string $nombreE
- * @param array $partidasE
+ * @param string $nombreJug
+ * @param array $arregloPartidas
  * @return boolean
  */
-function jugadorExiste($nombreE,$partidasE){
+function jugadorExiste($nombreJug, $arregloPartidas){
     //boolean $existe
-    $m = count($partidasE); // limite del array
-    $l = 0; //contador
+    $m = count($arregloPartidas); // limite del array
+    $i = 0; //contador
     $existe = false;
-    while ($l < $m && !$existe) {
-        if ($partidasE[$l]["jugador"] == $nombreE){
+    while ($i < $m && !$existe) {
+        if ($arregloPartidas[$i]["jugador"] == $nombreJug){
             $existe = true;
         }
-        $l += 1;
+        $i += 1;
     }
     return $existe;
 }
@@ -98,23 +98,22 @@ function cargarPartidas(){
 
 /** Dado un numero de partida muestra en pantalla los datos de esa partida
  * @param int $numeroP
- * @param array $arregloPar
+ * @param array $arregloPartidas
  * @return array
  */
-// arreglo de partidas no sabemos si esta permitido como parametro de entrada
-function numeroPartida ($arregloPar, $numeroP){
+function numeroPartida ($arregloPartidas, $numeroP){
     echo "********************************** \nPartida WORDIX" ,$numeroP ,
     ": palabra " ,
-    $arregloPar[$numeroP]["palabraWordix"] ,
+    $arregloPartidas[$numeroP]["palabraWordix"] ,
     "\nJugador: " ,
-    $arregloPar[$numeroP]["jugador"] ,
+    $arregloPartidas[$numeroP]["jugador"] ,
     "\nPuntaje: " ,
-    $arregloPar[$numeroP]["puntaje"] ,
+    $arregloPartidas[$numeroP]["puntaje"] ,
     " puntos \n";
-    if ($arregloPar[$numeroP]["intentos"] == 0){
+    if ($arregloPartidas[$numeroP]["intentos"] == 0){
         echo "Intento: No adivinó la palabra \n**********************************";
     } else {
-        echo "Intento: Adivino la palabra en ",$arregloPar[$numeroP]["intentos"] , " intentos \n**********************************\n";
+        echo "Intento: Adivino la palabra en ",$arregloPartidas[$numeroP]["intentos"] , " intentos \n**********************************\n";
     }
     
 }
@@ -122,24 +121,23 @@ function numeroPartida ($arregloPar, $numeroP){
 
 
 /** Dada una colección de partidas y el nombre de un jugador, retorne la primer partida ganada 
- * @param array $partidasT
- * @param string $nombreJugadorGana
+ * @param array $arregloPartidas
+ * @param string $nombreJugador
  * @return int
  */
-function primerGanada ($partidasT, $nombreJugadorGana) {
+function primerGanada ($arrregloPartidas, $nombreJugador) {
     // int $m
     // boolean $encontradoGana
-    $m = count($partidasT); // limite del array
-    $l = 0; //contador
+    $m = count($arrregloPartidas); // limite del array
+    $i = 0; //contador
     $encontradoGana = false;
     $posicionGanada = -1;
-    //remplazar logica con llamado a palabraJugada
-    while ($l < $m && !$encontradoGana) {
-        if (($partidasT[$l]["jugador"] == $nombreJugadorGana) && $partidasT[$l]["puntaje"] > 0){
+    while ($i < $m && !$encontradoGana) {
+        if (($arrregloPartidas[$i]["jugador"] == $nombreJugador) && $arrregloPartidas[$i]["puntaje"] > 0){
             $encontradoGana = true;
-            $posicionGanada = $l;
+            $posicionGanada = $i;
         }
-        $l += 1;
+        $i += 1;
     }
     return $posicionGanada;
 }
@@ -148,16 +146,16 @@ function primerGanada ($partidasT, $nombreJugadorGana) {
 
 
 /** recibe coleccion partidas, jugador, y palabra, devuelve numero de partida si encontro, o -1 si no la uso
- * @param array $arreglo
- * @param string $jugador, $palabra
+ * @param array $arregloPartidas
+ * @param string $nombreJugador, $palabra
  * @return int
  */
-function palabraJugada ($arreglo, $jugador, $palabra){
+function palabraJugada ($arregloPartidas, $nombreJugador, $palabra){
     $i = 0;
     $palabJugada = -1;
     $encontrada = false;
-    while ($i < count($arreglo) && !$encontrada){
-        if($arreglo[$i]["jugador"] == $jugador && $arreglo[$i]["palabraWordix"] == $palabra){
+    while ($i < count($arregloPartidas) && !$encontrada){
+        if($arregloPartidas[$i]["jugador"] == $nombreJugador && $arregloPartidas[$i]["palabraWordix"] == $palabra){
             $encontrada = true;
             $palabJugada = $i;
         }
@@ -169,42 +167,17 @@ function palabraJugada ($arreglo, $jugador, $palabra){
 
 
 
-/** recibe coleccion partidas y jugador, devuelve numero de resumen si encontro, o -1 si no tiene
- * @param array $arreglo
- * @param string $jugador
- * @return int
-*/
-//revisar si se puede combinar logica con palabraJugada
-function tieneResumen ($arreglo, $jugador){
-    $i = 0;
-    $resumen= -1;
-    $encontrado = false;
-    while ($i < count($arreglo) && !$encontrado){
-        if($arreglo[$i]["jugador"] == $jugador){
-            $encontrado = true;
-            $resumen = $i;
-        }
-        $i += 1;
-    }
-    return $resumen;
-}
 
-
-
-
-/** 
- *por cada jugador de la partida le saco los datos y veo si es igual a otro asi le sumo los puntos de 
- *ambas partidas del mismo jugador
- *primero con la variable intentoJ 
- *@param array $arrayPar
+/** recibe arreglo partidas y nombre, y hace recorrido exhaustivo para crear arreglo jugador
+ *@param array $arregloPartidsa
  *@param string $nombre
  *@return array
  */
-function resumenJugador($arrayPar, $nombre){
+function resumenJugador($arregloPartidas, $nombre){
     //variables que se le van a sumar al arreglo de $resumenJugador
-    $puntajeJ = 0;
-    $victoriasJ = 0;
-    $partidasJ = 0;
+    $puntaje = 0;
+    $victorias = 0;
+    $partidas = 0;
     $intento1 = 0;
     $intento2 = 0;
     $intento3 = 0;
@@ -212,17 +185,17 @@ function resumenJugador($arrayPar, $nombre){
     $intento5 = 0;
     $intento6 = 0;
 
-    foreach ($arrayPar as $i => $elemento) {
+    foreach ($arregloPartidas as $i => $elemento) {
 
-        if (($arrayPar[$i]["jugador"]) == $nombre) {
-            $puntajeJ += $arrayPar[$i]["puntaje"];
-            $partidasJ += 1;
-            if ($puntajeJ > 0) {
-                $victoriasJ += 1;
+        if (($arregloPartidas[$i]["jugador"]) == $nombre) {
+            $puntaje += $arregloPartidas[$i]["puntaje"];
+            $partidas += 1;
+            if ($puntaje > 0) {
+                $victorias += 1;
             }
             
             //carga del intento de esta partida en el array 
-            switch ($arrayPar[$i]["intentos"]) {
+            switch ($arregloPartidas[$i]["intentos"]) {
                 case 1:
                     $intento1 += 1;
                     break;
@@ -244,28 +217,27 @@ function resumenJugador($arrayPar, $nombre){
             }
         }
     }
-    $arregloResumen = ["nombre" => $nombre, "partidas" => $partidasJ, "puntaje" => $puntajeJ, "victorias" => $victoriasJ, "intento 1" => $intento1, "intento 2" => $intento2, "intento 3" => $intento3, "intento 4" => $intento4, "intento 5" => $intento5, "intento 6" => $intento6];
+    $arregloResumen = ["nombre" => $nombre, "partidas" => $partidas, "puntaje" => $puntaje, "victorias" => $victorias, "intento 1" => $intento1, "intento 2" => $intento2, "intento 3" => $intento3, "intento 4" => $intento4, "intento 5" => $intento5, "intento 6" => $intento6];
     return ($arregloResumen);
 }
 
 
 
-/** recibe arreglo de jugadores y nombre, muestra resumen de jugador ingresado
- * @param string $nombreJ
- * @param array $partidas
+/** recibe arreglo de jugador y lo muestra por pantalla
+ * @param array $arregloJugador
  */
-function imprimirResumen($arregloJugadores,$posicion) {
+function imprimirResumen($arregloJugador) {
     echo "**********************************\n";
-    echo (" RESUMEN DEL JUGADOR: ".$arregloJugadores[$posicion]["nombre"]."\n");
-    echo (" Partidas: ".$arregloJugadores[$posicion]["partidas"]."\n");
-    echo (" Puntaje: ".$arregloJugadores[$posicion]["puntaje"]."\n");
-    echo (" Victorias: ".$arregloJugadores[$posicion]["victorias"]."\n");
-    echo (" Intento1:  ".$arregloJugadores[$posicion]["intento 1"]."\n");
-    echo (" Intento2:  ".$arregloJugadores[$posicion]["intento 2"]."\n");
-    echo (" Intento3:  ".$arregloJugadores[$posicion]["intento 3"]."\n");
-    echo (" Intento4:  ".$arregloJugadores[$posicion]["intento 4"]."\n");
-    echo (" Intento5:  ".$arregloJugadores[$posicion]["intento 5"]."\n");
-    echo (" Intento6:  ".$arregloJugadores[$posicion]["intento 6"]."\n");
+    echo (" RESUMEN DEL JUGADOR: ".$arregloJugador["nombre"]."\n");
+    echo (" Partidas: ".$arregloJugador["partidas"]."\n");
+    echo (" Puntaje: ".$arregloJugador["puntaje"]."\n");
+    echo (" Victorias: ".$arregloJugador["victorias"]."\n");
+    echo (" Intento1:  ".$arregloJugador["intento 1"]."\n");
+    echo (" Intento2:  ".$arregloJugador["intento 2"]."\n");
+    echo (" Intento3:  ".$arregloJugador["intento 3"]."\n");
+    echo (" Intento4:  ".$arregloJugador["intento 4"]."\n");
+    echo (" Intento5:  ".$arregloJugador["intento 5"]."\n");
+    echo (" Intento6:  ".$arregloJugador["intento 6"]."\n");
     echo "**********************************\n";
 }
 
@@ -285,7 +257,7 @@ function agregarPalabra ($coleccionPalabras, $palabraAgregada){
 
 
 
-/** ponemos una introduccion-bienvenida??
+/** muestra menu de opciones por pantalla
  * @return int
  */
 function seleccionarOpcion(){
@@ -347,11 +319,11 @@ function comparacion($a, $b){
 
 
 /** recibe arreglo partidas y las muestra en orden alfabetico por jugador y palabra sin modificar arreglo original
- * @param array $arreglo
+ * @param array $arregloPartidas
  */
-function mostrarPartidasAbc($arreglo){
+function mostrarPartidasAbc($arregloPartidas){
     //array $partidasAbc
-    $partidasAbc = $arreglo;
+    $partidasAbc = $arregloPartidas;
     uasort($partidasAbc, 'comparacion');
     print_r($partidasAbc);
 }
@@ -392,8 +364,8 @@ do {
             echo "Ingrese su nombre\n";
             $nombre = solicitarJugador();
             //loop infinito si jugador uso todas las palabras disponible
-            $jugador[count($jugador)] = resumenJugador($partidas, $nombre);
-            if ($jugador[count($jugador)-1]["partidas"] == count($palabras)){
+            $jugador = resumenJugador($partidas, $nombre);
+            if ($jugador["partidas"] == count($palabras)){
                 echo "Ya jugó con todas las palabras disponibles\n";
             } else {
                 do {
@@ -415,13 +387,12 @@ do {
             echo "Ingrese el nombre del jugador que desea ver\n";
             $nombre = solicitarJugador();
             if (jugadorExiste($nombre,$partidas)== true){
-            $partidaB = primerGanada($partidas, $nombre);
-            
-            if (!($partidaB == -1)){
-                numeroPartida($partidas, $partidaB);
-            }else {
-                echo "Este jugador no ha ganado ninguna partida\n";
-            }
+                $partida = primerGanada($partidas, $nombre);  
+                if (!($partida == -1)){
+                    numeroPartida($partidas, $partida);
+                }else {
+                    echo "Este jugador no ha ganado ninguna partida\n";
+                }
             }else {
                 echo "Este jugador no ha jugado ninguna partida\n";
             }
@@ -429,14 +400,11 @@ do {
         case 5: 
              echo ("ingrese nombre del jugador a ver\n");
              $nombre= solicitarJugador();
-             $posicion = tieneResumen($jugador, $nombre);
-             //borramos esto y dejamos el resumen $jugador??
-             if ($posicion <> -1){
-                $jugador[$posicion] = resumenJugador($partidas, $nombre);
-                imprimirResumen($jugador, $posicion);
+             if (jugadorExiste($nombre, $partidas)){ 
+                $jugador = resumenJugador($partidas, $nombre);
+                imprimirResumen($jugador);
              } else {
-                $jugador[count($jugador)] = resumenJugador($partidas, $nombre);
-                imprimirResumen($jugador, (count($jugador) -1));
+                echo "Este jugador no ha jugado ninguna partida \n";
              }
             break;
 
