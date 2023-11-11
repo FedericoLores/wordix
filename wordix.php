@@ -349,10 +349,12 @@ function obtenerPuntajeWordix($nroIntento, $palabraPunt){
             case "a"; case "e"; case "i"; case "o"; case "u";
                 $puntaje += 1;
                 break;
-            case "b"; case "c"; case "d"; case "f"; case "g"; case "h"; case "j"; case "k"; case "l"; case "m";
+            // consonantes hasta la m
+            case (ord($palabraPunt[$iLetra]) >= 98 && ord($palabraPunt[$iLetra]) <= 109 ):
                 $puntaje += 2;
                 break;
-            case "n"; case "ñ"; case "p"; case "q"; case "r"; case "s"; case "t"; case "v"; case "w"; case "x"; case "y"; case "z";
+            // consonantes desde la n
+            default:
                 $puntaje += 3;
                 break;
         }
