@@ -50,9 +50,18 @@ function ingresarPalabra (){
 function solicitarJugador (){
     //string $nombreSol
     $nombreSol = trim(fgets(STDIN));
-    while (!ctype_alpha($nombreSol[0])){
-        echo "Ingrese un nombre valido\n";
-        $nombreSol = trim(fgets(STDIN));
+    $valido = false;
+    while (!$valido){
+        //condicional anidado para evitar revisar posicion inexistente
+        if(strlen($nombreSol)<1){
+            echo "Ingrese un nombre valido\n";
+            $nombreSol = trim(fgets(STDIN));
+        }elseif(!(ctype_alpha($nombreSol[0]))){
+            echo "Ingrese un nombre valido\n";
+            $nombreSol = trim(fgets(STDIN));
+        }else{
+            $valido = true;
+        }
     }
     $nombreSol = strtolower($nombreSol);
     return $nombreSol;
@@ -385,7 +394,7 @@ do {
         case 4:
             echo "Ingrese el nombre del jugador que desea ver\n";
             $nombre = solicitarJugador();
-            if (jugadorExiste($nombre,$partidas)== true){
+            if (jugadorExiste($nombre,$partidas)){
                 $partida = primerGanada($partidas, $nombre);  
                 if (!($partida == -1)){
                     numeroPartida($partidas, $partida);
@@ -419,7 +428,6 @@ do {
 } while ($opcion != 8);
 
 echo "Adios!";
-
 
 
 ?>
