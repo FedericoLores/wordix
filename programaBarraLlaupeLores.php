@@ -34,15 +34,6 @@ function cargarColeccionPalabras(){
 
 
 
-/** pide a usuario una palabra de 5 letras y retorna la palabra 
- * @return string
-*/
-function ingresarPalabra (){
-    $rPalabra = strtolower(leerPalabra5Letras());
-    return $rPalabra;
-}
-
-
 
 /** Solicita al usuario el nombre del jugador y retorna el nombre en minuscula
  * @return string
@@ -250,7 +241,7 @@ function imprimirResumen($arregloJugador) {
 
 
 
-/**
+/** recibe arreglo palabras y string, agrega string al arreglo
  * @param array $coleccionPalabras
  * @param string $palabraAgregada
  * @return array
@@ -261,7 +252,20 @@ function agregarPalabra ($coleccionPalabras, $palabraAgregada){
     return $coleccionActualizada;
 }
 
-
+/** recibe arreglo palabras y palabra, devuelve si la palabra ya existe adentro
+ * @param array $coleccionPalabras
+ * @param string $palabra
+ * @return boolean
+ */
+function revisarPalabra($coleccionPalabras, $palabra){
+    $i = 0;
+    $encontrada = false;
+    while($i<count($coleccionPalabras) && !$encontrada){
+        $encontrada = ($coleccionPalabras[$i] == $palabra);
+        $i += 1;
+    }
+    return $encontrada;
+}
 
 
 /** muestra menu de opciones por pantalla
@@ -269,8 +273,12 @@ function agregarPalabra ($coleccionPalabras, $palabraAgregada){
  */
 function seleccionarOpcion(){
     //int $opcionInput
+    //multiple echo para legibilidad
     echo "seleccione una opción por favor \n";
-    echo " 1) Jugar eligiendo palabra \n 2) Jugar con palabra aleatoria \n 3) Ver partida \n 4) Ver primer partida ganadora \n 5) Ver estadísticas de un jugador \n 6) Ver lista de partidas \n 7) Agregar una palabra \n 8) Salir\n";
+    echo " 1) Jugar eligiendo palabra \n 2) Jugar con palabra aleatoria \n";
+    echo " 3) Ver partida \n 4) Ver primer partida ganadora \n"; 
+    echo " 5) Ver estadísticas de un jugador \n 6) Ver lista de partidas \n"; 
+    echo " 7) Agregar una palabra \n 8) Salir\n";
     /* llama modulo numeroValido */
     $opcionInput = solicitarNumeroEntre(1, 8);
     return $opcionInput;
@@ -288,8 +296,8 @@ function comparacion($a, $b){
     $dif = false;
     $i = 0;
     if ($a["jugador"] == $b["jugador"]){
-        // no comparamos igualdad porque un jugador no puede tener 2 veces la misma palabra
         do{
+            // no comparamos igualdad porque un jugador no puede tener 2 veces la misma palabra
             if ((ord($a["palabraWordix"][$i]) < ord($b["palabraWordix"][$i]))){
                 $dif = true;
                 $orden = -1;
@@ -304,10 +312,10 @@ function comparacion($a, $b){
         //devuelve orden correcto si son nombres iguales de diferente largo
         if (count($a) < count($b) ){
             $limit = count($a);
-            $orden = -1;
+            $orden = 1;
         } else {
             $limit = count($b);
-            $orden = 1;
+            $orden = -1;
         }
         while ($i<$limit && !$dif) {
             if ((ord($a["jugador"][$i]) < ord($b["jugador"][$i]))){
@@ -336,7 +344,7 @@ function mostrarPartidasAbc($arregloPartidas){
 }
 
 
-/** recibe partidas, palabras, y nombre, revisa si jugador tiene palabras disponibles y devuelve boolean
+/** recibe partidas, palabras, y nombre, revisa si jugador tiene palabras disponibles, escribe si no quedan disponibles y devuelve bandera
  * @param array $arregloPartidas, $arregloPalabras
  * @param string $nombre
  * @return boolean
@@ -373,34 +381,34 @@ $jugador = [];
 do {
     $opcion = seleccionarOpcion();
     switch ($opcion) {
-        case 1: 
+        case 1: //jugar con palabra elegida
             echo "Ingrese su nombre: ";
             $nombre = solicitarJugador();
-            //revisar que el jugador tenga palabras disponibles
+            //revisa que el jugador tenga palabras disponibles
             if (palabraDisponible($partidas, $palabras, $nombre)){
                 echo "Ingrese el numero de una palabra para jugar\n";
                 $numPal = solicitarNumeroEntre(0, (count($palabras) -1) );
                 while (!(palabraJugada($partidas, $nombre, $palabras[$numPal]) == -1)){
-                echo "ya utilizo esa palabra, por favor ingrese el numero de otra palabra\n";
-                $numPal = solicitarNumeroEntre(0, (count($palabras) -1) );
+                    echo "ya utilizo esa palabra, por favor ingrese el numero de otra palabra\n";
+                    $numPal = solicitarNumeroEntre(0, (count($palabras) -1) );
                 }
                 $partidas[count($partidas)] = jugarWordix($palabras[$numPal], $nombre);
             }
             break;
 
-        case 2: 
+        case 2: //jugar con palabra aleatoria
             echo "Ingrese su nombre: ";
             $nombre = solicitarJugador();
-            //revisamos que el jugador tenga palabras disponibles
+            //revisa que el jugador tenga palabras disponibles
             if (palabraDisponible($partidas, $palabras, $nombre)){
                 do {
                     $numPal = rand(0, (count($palabras) -1) );
-                } while (!(palabraJugada($partidas, $nombre, $palabras[$numPal]) == -1));
-                    $partidas[count($partidas)] = jugarWordix($palabras[$numPal], $nombre);
+                } while (palabraJugada($partidas, $nombre, $palabras[$numPal]) != -1);
+                $partidas[count($partidas)] = jugarWordix($palabras[$numPal], $nombre);
             }
             break;
 
-        case 3: 
+        case 3: //mostar partida elegida
             $numMax = count($partidas) - 1;
             $numMin = 0;
             echo "Ingrese un numero de partida: ";
@@ -408,7 +416,7 @@ do {
             mostrarPartida($partidas, $numPar);
             break;
         
-        case 4:
+        case 4: //mostar primer partida ganadora
             echo "Ingrese el nombre del jugador que desea ver\n";
             $nombre = solicitarJugador();
             if (jugadorExiste($nombre,$partidas)){
@@ -422,7 +430,7 @@ do {
                 echo $nombre , " no ha jugado ninguna partida\n";
             }
             break;
-        case 5: 
+        case 5: //mostrar estadisticas jugador
              echo ("ingrese nombre del jugador a ver: ");
              $nombre= solicitarJugador();
              if (jugadorExiste($nombre, $partidas)){ 
@@ -433,15 +441,20 @@ do {
              }
             break;
 
-        case 6:
+        case 6: //mostrar partidas por jugador y palabra
             mostrarPartidasAbc($partidas);
             break;
 
-        case 7:
-            $palabraIN = leerPalabra5Letras();
-            $palabras = agregarPalabra($palabras, $palabraIN);
+        case 7: //agregar palabra
+            $palabraIn = leerPalabra5Letras();
+            while (revisarPalabra($palabras,$palabraIn)){
+                echo "La palabra ingresada ya existe\n";
+                $palabraIn = leerPalabra5Letras();
+            }
+            $palabras = agregarPalabra($palabras, $palabraIn);
             break;
     }
+//salir
 } while ($opcion != 8);
 
 echo "Adios!";
