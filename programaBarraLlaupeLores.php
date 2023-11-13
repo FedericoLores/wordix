@@ -184,6 +184,7 @@ function palabraJugada ($arregloPartidas, $nombreJugador, $palabra){
  */
 function resumenJugador($arregloPartidas, $nombre){
     //variables que se le van a sumar al arreglo de $resumenJugador
+    //int $puntaje, $victorias, $partidas, $intento1, $intento2, $intento3, $intento4, $intento5, $intento6
     $puntaje = 0;
     $victorias = 0;
     $partidas = 0;

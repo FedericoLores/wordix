@@ -3,14 +3,11 @@
 
 # Trabajo Final de Introducción a la Programacion - 2023
 
-Grupo 8
+## Grupo 8
 
 </div>
 
-<!-- CREADO CON -->
-## Creado con
 
-- [![GITHUB][github-shield]][github-url]
 
 <!-- PROFESORES -->
 ## Profesores
@@ -21,45 +18,36 @@ Grupo 8
 ## Integrantes
 
 Lores Federico
-   - Legajo 2984
+   - Legajo: 2984
+   - Mail: federico.lores@est.fi.uncoma.edu.ar
+   - [![GITHUB][personal-shield]][personal-url]
 
 Llaupe Gastón
-   - Legajo 4983
+   - Legajo: 4983
+   - Mail: gaston.llaupe@est.fi.uncoma.edu.ar
+   - [![GITHUB][personal-shield2]][personal-url2]
 
 Barra Santiago
-   - Legajo 5007
+   - Legajo: 5007
+   - Mail: santiago.barra@est.fi.uncoma.edu.ar
+   - [![GITHUB][personal-shield3]][personal-url3]
 
-<!-- CONTACTO -->
-## Contacto
-
-[![GITHUB][personal-shield]][personal-url]
-Mail: federico.lores@est.fi.uncoma.edu.ar
-
-[![GITHUB][personal-shield2]][personal-url2]
-Mail: gaston.llaupe@est.fi.uncoma.edu.ar
-
-[![GITHUB][personal-shield3]][personal-url3]
-Mail: santiago.barra@est.fi.uncoma.edu.ar
-
-<!-- RECONOCIMIENTOS -->
-## Reconocimientos
+<!-- CREADO CON -->
+## Creado con
 
 Este projecto se realizo con los siguientes recursos :heart:
 
 - [Img Shields](https://shields.io)
-- [othneildrew's Best-README-Template repository](https://github.com/othneildrew/Best-README-Template)
-- [Ileriayo's markdown-badges repository](https://github.com/Ileriayo/markdown-badges)
+- [![GITHUB][github-shield]][github-url]
 
 <!-- MARKDOWN LINKS AND IMAGES -->
 <!-- BUILT WITH -->
 [github-shield]: https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white
 [github-url]: https://github.com
 <!-- MY GITHUB -->
-[personal-shield]: https://img.shields.io/badge/FEDERICO-LORES-yellowgreen?style=for-the-badge
-[personal-url]: https://github.com/dvc0de
+[personal-shield]: https://img.shields.io/badge/FEDERICO-LORES-maroon?style=for-the-badge&labelColor=black
+[personal-url]: https://github.com/FedericoLores
 [personal-shield2]: https://img.shields.io/badge/GASTON-LLAUPE-yellowgreen?style=for-the-badge
 [personal-url2]: https://github.com/gastonllaupe
-[personal-shield3]: https://img.shields.io/badge/SANTIAGO-BARRA-yellowgreen?style=for-the-badge
+[personal-shield3]: https://img.shields.io/badge/SANTIAGO-BARRA-lightgreen?style=for-the-badge&labelColor=darkgreen
 [personal-url3]: https://github.com/Efimero2004
-<!-- LICENSE -->
-[license-shield]: https://img.shields.io/github/license/Ileriayo/markdown-badges?style=for-the-badge
