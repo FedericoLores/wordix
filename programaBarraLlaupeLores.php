@@ -10,7 +10,7 @@ include_once("wordix.php");
 /* Integrantes del grupo:
 /* Barra, Santiago. - Legajo 5007 - mail: santiago.barra@est.fi.uncoma.edu.ar- github: Efimero2004
 /* Llaupe, Gaston. - Legajo 4983 - mail: gaston.llaupe@est.fi.uncoma.edu.ar - github: gastonllaupe
-/* Lores, Federico. - Legajo: 2948 - mail: federico.lores@est.fi.uncoma.edu.ar - github: dvc0de
+/* Lores, Federico. - Legajo: 2948 - mail: federico.lores@est.fi.uncoma.edu.ar - github: FedericoLores
 
 
 
@@ -54,10 +54,10 @@ function solicitarJugador (){
     while (!$valido){
         //condicional anidado para evitar revisar posicion inexistente
         if(strlen($nombreSol)<1){
-            echo "Ingrese un nombre valido\n";
+            echo "Ingrese un nombre valido (minimo 1 caracter)\n";
             $nombreSol = trim(fgets(STDIN));
         }elseif(!(ctype_alpha($nombreSol[0]))){
-            echo "Ingrese un nombre valido\n";
+            echo "Ingrese un nombre valido (debe comenzar con una letra)\n";
             $nombreSol = trim(fgets(STDIN));
         }else{
             $valido = true;
@@ -337,6 +337,24 @@ function mostrarPartidasAbc($arregloPartidas){
 }
 
 
+/** recibe partidas, palabras, y nombre, revisa si jugador tiene palabras disponibles y devuelve boolean
+ * @param array $arregloPartidas, $arregloPalabras
+ * @param string $nombre
+ * @return boolean
+ */
+function palabraDisponible($arregloPartidas, $arregloPalabras, $nombre){
+    $palabrasUsadas = 0;
+    foreach ($arregloPartidas as $partida){
+        if($partida["jugador"] == $nombre){
+            $palabrasUsadas += 1;
+        }
+    }
+    $palabraDisponible = $palabrasUsadas < count($arregloPalabras);
+    if(!($palabraDisponible)){
+        echo "Ya jugó con todas las palabras disponibles\n";
+    }
+    return $palabraDisponible;
+}
 
 /**************************************/
 /*********** PROGRAMA PRINCIPAL *******/
@@ -358,23 +376,24 @@ do {
     switch ($opcion) {
         case 1: 
             echo "Ingrese su nombre: ";
-             $nombre = solicitarJugador();
-            echo "Ingrese el numero de una palabra para jugar\n";
-            $numPal = solicitarNumeroEntre(0, (count($palabras) -1) );
-            while (!(palabraJugada($partidas, $nombre, $palabras[$numPal]) == -1)){
+            $nombre = solicitarJugador();
+            //revisar que el jugador tenga palabras disponibles
+            if (palabraDisponible($partidas, $palabras, $nombre)){
+                echo "Ingrese el numero de una palabra para jugar\n";
+                $numPal = solicitarNumeroEntre(0, (count($palabras) -1) );
+                while (!(palabraJugada($partidas, $nombre, $palabras[$numPal]) == -1)){
                 echo "ya utilizo esa palabra, por favor ingrese el numero de otra palabra\n";
                 $numPal = solicitarNumeroEntre(0, (count($palabras) -1) );
+                }
+                $partidas[count($partidas)] = jugarWordix($palabras[$numPal], $nombre);
             }
-            $partidas[count($partidas)] = jugarWordix($palabras[$numPal], $nombre);
             break;
 
         case 2: 
             echo "Ingrese su nombre: ";
             $nombre = solicitarJugador();
-            $jugador = resumenJugador($partidas, $nombre);
-            if ($jugador["partidas"] == count($palabras)){
-                echo "Ya jugó con todas las palabras disponibles\n";
-            } else {
+            //revisamos que el jugador tenga palabras disponibles
+            if (palabraDisponible($partidas, $palabras, $nombre)){
                 do {
                     $numPal = rand(0, (count($palabras) -1) );
                 } while (!(palabraJugada($partidas, $nombre, $palabras[$numPal]) == -1));
