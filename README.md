@@ -17,20 +17,23 @@
 <!-- INTEGRANTES -->
 ## Integrantes
 
-Lores Federico
-   - Legajo: 2984
-   - Mail: federico.lores@est.fi.uncoma.edu.ar
-   - [![GITHUB][personal-shield]][personal-url]
+Barra Santiago
+   - Legajo: 5007
+   - Mail: santiago.barra@est.fi.uncoma.edu.ar
+   - [![GITHUB][personal-shield3]][personal-url3]
 
 Llaupe Gastón
    - Legajo: 4983
    - Mail: gaston.llaupe@est.fi.uncoma.edu.ar
    - [![GITHUB][personal-shield2]][personal-url2]
 
-Barra Santiago
-   - Legajo: 5007
-   - Mail: santiago.barra@est.fi.uncoma.edu.ar
-   - [![GITHUB][personal-shield3]][personal-url3]
+Lores Federico
+   - Legajo: 2984
+   - Mail: federico.lores@est.fi.uncoma.edu.ar
+   - [![GITHUB][personal-shield]][personal-url]
+
+
+
 
 <!-- CREADO CON -->
 ## Creado con
@@ -47,7 +50,7 @@ Este projecto se realizo con los siguientes recursos :heart:
 <!-- MY GITHUB -->
 [personal-shield]: https://img.shields.io/badge/FEDERICO-LORES-maroon?style=for-the-badge&labelColor=black
 [personal-url]: https://github.com/FedericoLores
-[personal-shield2]: https://img.shields.io/badge/GASTON-LLAUPE-yellowgreen?style=for-the-badge
+[personal-shield2]: https://img.shields.io/badge/GASTON-LLAUPE-purple?style=for-the-badge&labelColor=lightblue
 [personal-url2]: https://github.com/gastonllaupe
-[personal-shield3]: https://img.shields.io/badge/SANTIAGO-BARRA-lightgreen?style=for-the-badge&labelColor=darkgreen
+[personal-shield3]: https://img.shields.io/badge/SANTIAGO-BARRA-darkgreen?style=for-the-badge&labelColor=lightgreen
 [personal-url3]: https://github.com/Efimero2004
