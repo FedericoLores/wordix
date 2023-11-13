@@ -195,17 +195,15 @@ function resumenJugador($arregloPartidas, $nombre){
     $intento5 = 0;
     $intento6 = 0;
 
-    foreach ($arregloPartidas as $i => $elemento) {
-
-        if (($arregloPartidas[$i]["jugador"]) == $nombre) {
-            $puntaje += $arregloPartidas[$i]["puntaje"];
+    foreach ($arregloPartidas as $elemento) {
+        if (($elemento["jugador"]) == $nombre) {
+            $puntaje += $elemento["puntaje"];
             $partidas += 1;
             if ($puntaje > 0) {
                 $victorias += 1;
             }
-            
             //carga del intento de esta partida en el array 
-            switch ($arregloPartidas[$i]["intentos"]) {
+            switch ($elemento["intentos"]) {
                 case 1:
                     $intento1 += 1;
                     break;
