@@ -106,11 +106,10 @@ function cargarPartidas(){
 
 
 /** Dado un numero de partida muestra en pantalla los datos de esa partida
- * @param int $numeroP
  * @param array $arregloPartidas
- * @return array
+ * @param int $numeroP
  */
-function numeroPartida ($arregloPartidas, $numeroP){
+function mostrarPartida ($arregloPartidas, $numeroP){
     echo "********************************** \nPartida WORDIX" ,$numeroP ,
     ": palabra " ,
     $arregloPartidas[$numeroP]["palabraWordix"] ,
@@ -406,7 +405,7 @@ do {
             $numMin = 0;
             echo "Ingrese un numero de partida: ";
             $numPar = solicitarNumeroEntre($numMin, $numMax);
-            numeroPartida($partidas, $numPar);
+            mostrarPartida($partidas, $numPar);
             break;
         
         case 4:
@@ -415,7 +414,7 @@ do {
             if (jugadorExiste($nombre,$partidas)){
                 $partida = primerGanada($partidas, $nombre);  
                 if (!($partida == -1)){
-                    numeroPartida($partidas, $partida);
+                    mostrarPartida($partidas, $partida);
                 }else {
                     echo $nombre , " no ha ganado ninguna partida\n";
                 }
