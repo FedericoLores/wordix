@@ -380,6 +380,7 @@ $jugador = [];
 
 do {
     $opcion = seleccionarOpcion();
+    // la estructura switch es una estructura de control alternativa, que en este caso se utiliza de manera identica a un if else con condicion comparativa
     switch ($opcion) {
         case 1: //jugar con palabra elegida
             echo "Ingrese su nombre: ";
@@ -387,7 +388,7 @@ do {
             //revisa que el jugador tenga palabras disponibles
             if (palabraDisponible($partidas, $palabras, $nombre)){
                 echo "Ingrese el numero de una palabra para jugar\n";
-                $numPal = solicitarNumeroEntre(0, (count($palabras) -1) );
+                $numPal = solicitarNumeroEntre(1, (count($palabras))) -1;
                 while (!(palabraJugada($partidas, $nombre, $palabras[$numPal]) == -1)){
                     echo "ya utilizo esa palabra, por favor ingrese el numero de otra palabra\n";
                     $numPal = solicitarNumeroEntre(0, (count($palabras) -1) );
@@ -409,10 +410,10 @@ do {
             break;
 
         case 3: //mostar partida elegida
-            $numMax = count($partidas) - 1;
-            $numMin = 0;
+            $numMax = count($partidas);
+            $numMin = 1;
             echo "Ingrese un numero de partida: ";
-            $numPar = solicitarNumeroEntre($numMin, $numMax);
+            $numPar = solicitarNumeroEntre($numMin, $numMax) -1;
             mostrarPartida($partidas, $numPar);
             break;
         
@@ -458,6 +459,8 @@ do {
 } while ($opcion != 8);
 
 echo "Adios!";
+
+
 
 
 ?>

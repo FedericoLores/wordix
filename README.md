@@ -11,8 +11,8 @@
 
 <!-- PROFESORES -->
 ## Profesores
-   - María José Rotter
-   - Claudia Carrasco
+   - Lic. María José Rotter
+   - Lic. Claudia Carrasco
 
 <!-- INTEGRANTES -->
 ## Integrantes
