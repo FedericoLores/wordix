@@ -110,7 +110,7 @@ function mostrarPartida ($arregloPartidas, $numeroP){
     $arregloPartidas[$numeroP]["puntaje"] ,
     " puntos \n";
     if ($arregloPartidas[$numeroP]["intentos"] == 0){
-        echo "Intento: No adivinó la palabra \n**********************************";
+        echo "Intento: No adivinó la palabra \n**********************************\n";
     } else {
         echo "Intento: Adivino la palabra en ",$arregloPartidas[$numeroP]["intentos"] , " intentos \n**********************************\n";
     }
@@ -391,7 +391,7 @@ do {
                 $numPal = solicitarNumeroEntre(1, (count($palabras))) -1;
                 while (!(palabraJugada($partidas, $nombre, $palabras[$numPal]) == -1)){
                     echo "ya utilizo esa palabra, por favor ingrese el numero de otra palabra\n";
-                    $numPal = solicitarNumeroEntre(0, (count($palabras) -1) );
+                    $numPal = solicitarNumeroEntre(1, (count($palabras))) -1;
                 }
                 $partidas[count($partidas)] = jugarWordix($palabras[$numPal], $nombre);
             }
